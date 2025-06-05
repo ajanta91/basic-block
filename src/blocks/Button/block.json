@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "basic-block/button",
+  "version": "1.0.0",
+  "title": "Button [BB]",
+  "category": "wp-nonce-blocks",  
+  "description": "Display a Button block.",
+  "example": {},
+  "attributes": {
+    "buttonLabel": {
+      "type": "string",
+      "default": "Click Me"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "buttonClass": {
+      "type": "string",
+      "default": "btn-primary"
+    }
+  },
+  "supports": {
+    "color": {
+      "background": false,
+      "text": true
+    },
+    "html": false,
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "textdomain": "basic-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+  
+}
