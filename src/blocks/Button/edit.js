@@ -27,11 +27,9 @@ import { InspectorControls, useBlockProps, PanelColorSettings } from '@wordpress
  * @see https://developer.wordpress.org/block-editor/reference-guides/components/text-control/
  * @see https://developer.wordpress.org/block-editor/reference-guides/components/toggle-control/
  */
-import { PanelBody, TextControl, ToggleControl, TabPanel } from '@wordpress/components';
+import { PanelBody, TextControl, ToggleControl, TabPanel, ToolsPanel } from '@wordpress/components';
 
-import {
-	tabBgConst
-} from "./constants/backgroundsConstants";
+
 
 /**
  * Imports the useEffect React Hook. This is used to set an attribute when the
@@ -54,81 +52,126 @@ import { useEffect } from 'react';
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { buttonLabel, buttonUrl, openInNewTab, buttonClass, buttonId, backgroundColor } = 
-console.log('Edit function called with attributes:', attributes);
+	const { buttonLabel, buttonUrl, openInNewTab, buttonClass, buttonId, backgroundColor } = attributes;
+	console.log('Edit function called with attributes:', attributes);
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'basic-block' ) }>
-					
+				<PanelBody title={__('Settings', 'basic-block')}>
+
 					<TextControl
 						label={__('Button Label', 'basic-block')}
-						value={ attributes.buttonLabel }
-						onChange={ ( value ) =>
-							setAttributes( { buttonLabel: value } )
+						value={attributes.buttonLabel}
+						onChange={(value) =>
+							setAttributes({ buttonLabel: value })
 						}
 					/>
 					<TextControl
-						label={ __('Button URL','basic-block') }
-						value={ attributes.buttonUrl }
-						onChange={ ( value ) =>
-							setAttributes( { buttonUrl: value } )
+						label={__('Button URL', 'basic-block')}
+						value={attributes.buttonUrl}
+						onChange={(value) =>
+							setAttributes({ buttonUrl: value })
 						}
 					/>
 					<ToggleControl
-						label={ __('Open in new tab','basic-block') }
-						checked={ attributes.openInNewTab }
-						onChange={ ( value ) =>
-							setAttributes( { openInNewTab: value } )
+						label={__('Open in new tab', 'basic-block')}
+						checked={attributes.openInNewTab}
+						onChange={(value) =>
+							setAttributes({ openInNewTab: value })
 						}
 					/>
 					<TextControl
-						label={ __('Button Class','basic-block') }
-						value={ attributes.buttonClass }
-						onChange={ ( value ) =>
-							setAttributes( { buttonClass: value } )
+						label={__('Button Class', 'basic-block')}
+						value={attributes.buttonClass}
+						onChange={(value) =>
+							setAttributes({ buttonClass: value })
 						}
 					/>
 					<TextControl
-						label={ __('Button ID','basic-block') }
-						value={ attributes.buttonId }
-						onChange={ ( value ) =>
-							setAttributes( { buttonId: value } )
+						label={__('Button ID', 'basic-block')}
+						value={attributes.buttonId}
+						onChange={(value) =>
+							setAttributes({ buttonId: value })
 						}
 					/>
-											
+
 				</PanelBody>
 
-				<PanelColorSettings
-					title={__('Color Settings', 'basic-block')}
-					initialOpen={false}
-					colorSettings={[
-						{
-							value: backgroundColor,
-							onChange: (colorValue) => setAttributes({ backgroundColor: colorValue }),
-							label: __('Background Color', 'basic-block'),
-						},
-					]}
-				/>
+
 
 				<PanelBody title={__('Advanced Settings', 'basic-block')}>
 					<TextControl
-						label={ __('Custom CSS Class','basic-block') }
-						value={ attributes.customClass }
-						onChange={ ( value ) =>
-							setAttributes( { customClass: value } )
+						label={__('Custom CSS Class', 'basic-block')}
+						value={attributes.customClass}
+						onChange={(value) =>
+							setAttributes({ customClass: value })
 						}
 					/>
 				</PanelBody>
+				{/* <TabPanel
+					className="basic-block-tab-panel"
+					activeClass="active-tab"
+					tabs={[
+						{
+							name: 'settings',
+							title: __('AA Settings', 'basic-block'),
+						},
+						{
+							name: 'advanced',
+							title: __('AA Style', 'basic-block'),
+						},
+					]}
+				>
+					{(tab) => {
+						switch (tab.name) {
+							case 'settings':
+								return (
+
+									<PanelColorSettings
+										title={__('Color Settings', 'basic-block')}
+										initialOpen={true}
+										colorSettings={[
+											{
+												value: backgroundColor,
+												onChange: (colorValue) => setAttributes({ backgroundColor: colorValue }),
+												label: __('Background Color', 'basic-block'),
+											},
+										]}
+									/>
+								);
+
+							case 'advanced':
+								return (
+
+									<TextControl
+										label={__('aa abc', 'basic-block')}
+										value={attributes.customClass}
+										onChange={(value) =>
+											setAttributes({ customClass: value })
+										}
+									/>
+								);
+							default:
+								return null;
+						}
+					}}
+
+
+
+
+				</TabPanel> */}
+
+
+
 			</InspectorControls>
-			
+
 			<p {...useBlockProps()}>
 				<a
-					href={ attributes.buttonUrl }
-					target={ attributes.openInNewTab ? '_blank' : '_self' }
-					className={ attributes.buttonClass }
-					id={ attributes.buttonId }
+					href={attributes.buttonUrl}
+					target={attributes.openInNewTab ? '_blank' : '_self'}
+					className={attributes.buttonClass}
+					id={attributes.buttonId}
 				>
 					{attributes.buttonLabel}
 				</a>
