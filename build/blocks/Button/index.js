@@ -94,8 +94,8 @@ function Edit({
   console.log('Edit function called with attributes:', attributes);
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
     style: {
-      padding: padding ? `${padding.top || 0}px ${padding.right || 0}px ${padding.bottom || 0}px ${padding.left || 0}px` : undefined,
-      margin: margin ? `${margin.top || 0}px ${margin.right || 0}px ${margin.bottom || 0}px ${margin.left || 0}px` : undefined,
+      padding: padding ? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}` : undefined,
+      margin: margin ? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}` : undefined,
       backgroundColor: backgroundColor || undefined,
       color: textColor || undefined,
       fontSize: fontSize ? `${fontSize}px` : undefined
@@ -185,7 +185,7 @@ function Edit({
             right: '',
             bottom: '',
             left: '',
-            unit: ''
+            unit: 'px'
           },
           onChange: newPadding => setAttributes({
             padding: newPadding
@@ -197,7 +197,7 @@ function Edit({
             right: '',
             bottom: '',
             left: '',
-            unit: ''
+            unit: 'px'
           },
           onChange: newMargin => setAttributes({
             margin: newMargin
@@ -266,8 +266,8 @@ function save({
   } = attributes;
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save({
     style: {
-      padding: padding ? `${padding.top || 0}px ${padding.right || 0}px ${padding.bottom || 0}px ${padding.left || 0}px` : undefined,
-      margin: margin ? `${margin.top || 0}px ${margin.right || 0}px ${margin.bottom || 0}px ${margin.left || 0}px` : undefined,
+      padding: padding ? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}` : undefined,
+      margin: margin ? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}` : undefined,
       backgroundColor: backgroundColor || undefined,
       color: textColor || undefined,
       fontSize: fontSize ? `${fontSize}px` : undefined

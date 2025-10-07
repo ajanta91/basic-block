@@ -69,10 +69,10 @@ export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps({
 		style: {
 			padding: padding
-				? `${padding.top || 0}px ${padding.right || 0}px ${padding.bottom || 0}px ${padding.left || 0}px`
+				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
 				: undefined,
 			margin: margin
-				? `${margin.top || 0}px ${margin.right || 0}px ${margin.bottom || 0}px ${margin.left || 0}px`
+				? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
 				: undefined,
 			backgroundColor: backgroundColor || undefined,
 			color: textColor || undefined,
@@ -170,13 +170,13 @@ console.log('Block Props', blockProps);
 				<PanelBody title={__('Spacing', 'basic-block')}>
 					<SpacingControl
 						label={__('Padding', 'basic-block')}
-						values={padding || { top: '', right: '', bottom: '', left: '', unit: '' }}
+						values={padding || { top: '', right: '', bottom: '', left: '', unit: 'px' }}
 						onChange={(newPadding) => setAttributes({ padding: newPadding })}
 					/>
 
 					<SpacingControl
 						label={__('Margin', 'basic-block')}
-						values={margin || { top: '', right: '', bottom: '', left: '', unit: '' }}
+						values={margin || { top: '', right: '', bottom: '', left: '', unit: 'px' }}
 						onChange={(newMargin) => setAttributes({ margin: newMargin })}
 					/>
 				</PanelBody>
