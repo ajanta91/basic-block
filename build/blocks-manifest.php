@@ -28,16 +28,39 @@ return array(
 			'buttonClass' => array(
 				'type' => 'string',
 				'default' => 'btn-primary'
+			),
+			'padding' => array(
+				'type' => 'object',
+				'default' => array(
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => ''
+				)
+			),
+			'margin' => array(
+				'type' => 'object',
+				'default' => array(
+					'top' => '',
+					'right' => '',
+					'bottom' => '',
+					'left' => ''
+				)
 			)
 		),
 		'supports' => array(
 			'color' => array(
-				'background' => false,
+				'background' => true,
 				'text' => true
 			),
 			'html' => false,
 			'typography' => array(
-				'fontSize' => true
+				'fontSize' => true,
+				'lineHeight' => true,
+				'fontFamily' => true,
+				'fontWeight' => true,
+				'textTransform' => true,
+				'textDecoration' => true
 			)
 		),
 		'textdomain' => 'basic-block',
@@ -82,5 +105,66 @@ return array(
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',
 		'render' => 'file:./render.php'
+	),
+	'ImageGallery' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'basic-block/image-gallery',
+		'version' => '1.0.0',
+		'title' => 'Image Gallery [BB]',
+		'category' => 'wp-nonce-blocks',
+		'description' => 'Display an image gallery with optional lightbox (Magnific Popup).',
+		'keywords' => array(
+			'gallery',
+			'images',
+			'lightbox'
+		),
+		'attributes' => array(
+			'images' => array(
+				'type' => 'array',
+				'default' => array(
+					
+				),
+				'items' => array(
+					'type' => 'object'
+				)
+			),
+			'columns' => array(
+				'type' => 'number',
+				'default' => 3
+			),
+			'gutter' => array(
+				'type' => 'number',
+				'default' => 15
+			),
+			'enableLightbox' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'imageSize' => array(
+				'type' => 'string',
+				'default' => 'large'
+			),
+			'borderRadius' => array(
+				'type' => 'number',
+				'default' => 0
+			),
+			'hoverEffect' => array(
+				'type' => 'string',
+				'default' => 'zoom'
+			)
+		),
+		'supports' => array(
+			'align' => array(
+				'wide',
+				'full'
+			),
+			'html' => false
+		),
+		'textdomain' => 'basic-block',
+		'editorScript' => 'file:./index.js',
+		'editorStyle' => 'file:./index.css',
+		'style' => 'file:./style-index.css',
+		'viewScript' => 'file:./view.js'
 	)
 );

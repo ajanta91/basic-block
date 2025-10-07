@@ -23,16 +23,39 @@
     "buttonClass": {
       "type": "string",
       "default": "btn-primary"
+    },
+    "padding": {
+      "type": "object",
+      "default": {
+        "top": "",
+        "right": "",
+        "bottom": "",
+        "left": ""
+      }
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "top": "",
+        "right": "",
+        "bottom": "",
+        "left": ""
+      }
     }
   },
   "supports": {
     "color": {
-      "background": false,
+      "background": true,
       "text": true
     },
     "html": false,
     "typography": {
-      "fontSize": true
+      "fontSize": true,
+      "lineHeight": true,
+      "fontFamily": true,
+      "fontWeight": true,
+      "textTransform": true,
+      "textDecoration": true
     }
   },
   "textdomain": "basic-block",

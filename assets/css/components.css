@@ -1,0 +1,28 @@
+/*Spacing Control group style */
+.bb-spacing-control__inputs {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+.bb-spacing-control__inputs > .components-base-control{
+    margin-bottom: 0;
+}
+.bb-spacing-control__inputs > .components-base-control .components-text-control__input{
+    appearance: none;
+    border: 1px solid #ddd;
+}
+.bb-spacing-control__inputs .components-base-control .components-select-control__input{
+    padding: 0 20px 0 8px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.bb-spacing-control__inputs .components-base-control input[type=number].components-select-control__input::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.bb-spacing-control__inputs .components-base-control input[type=number].components-select-control__input {
+    -moz-appearance: textfield;
+}

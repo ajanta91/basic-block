@@ -70,7 +70,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	} else {
 		displayDate = currentYear;
 	}
-
+console.log('Block Props', useBlockProps());
 	return (
 		<>
 			<InspectorControls>

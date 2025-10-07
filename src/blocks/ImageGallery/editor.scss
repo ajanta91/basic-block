@@ -1,0 +1,5 @@
+.bb-image-gallery-editor .bb-image-gallery-grid { display:grid; grid-template-columns:repeat(var(--bb-columns),1fr); gap:var(--bb-gutter);} 
+.bb-image-gallery-editor .bb-image-gallery-item { position:relative; overflow:hidden; border-radius:var(--bb-radius);} 
+.bb-image-gallery-editor img { width:100%; height:100%; object-fit:cover; display:block;} 
+.bb-image-gallery-placeholder { padding:20px; border:1px dashed #ccc; text-align:center;} 
+.bb-image-actions { position:absolute; top:6px; right:6px; display:flex; gap:4px; }

@@ -18,10 +18,30 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @return {Element} Element to render.
  */
-export default function save( { attributes } ) {
+export default function save({ attributes }) {
+	const {
+		backgroundColor,
+		fontSize,
+		textColor,
+		margin,
+		padding } = attributes;
+	
+	const blockProps = useBlockProps.save({
+		style: {
+			padding: padding
+				? `${padding.top || 0}px ${padding.right || 0}px ${padding.bottom || 0}px ${padding.left || 0}px`
+				: undefined,
+			margin: margin
+				? `${margin.top || 0}px ${margin.right || 0}px ${margin.bottom || 0}px ${margin.left || 0}px`
+				: undefined,
+			backgroundColor: backgroundColor || undefined,
+			color: textColor || undefined,
+			fontSize: fontSize ? `${fontSize}px` : undefined,
+		}
+	});
 
 	return (
-		<p {...useBlockProps.save()}>
+		<p {...blockProps}>
 			<a href={attributes.buttonUrl} id={attributes.buttonId} className={`wp_nonce_button ${attributes.buttonClass}`} >{ attributes.buttonLabel}</a>
 		</p>
 	);

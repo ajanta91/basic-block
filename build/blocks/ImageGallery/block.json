@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "basic-block/image-gallery",
+  "version": "1.0.0",
+  "title": "Image Gallery [BB]",
+  "category": "wp-nonce-blocks",
+  "description": "Display an image gallery with optional lightbox (Magnific Popup).",
+  "keywords": [
+    "gallery",
+    "images",
+    "lightbox"
+  ],
+  "attributes": {
+    "images": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object"
+      }
+    },
+    "columns": {
+      "type": "number",
+      "default": 3
+    },
+    "gutter": {
+      "type": "number",
+      "default": 15
+    },
+    "enableLightbox": {
+      "type": "boolean",
+      "default": true
+    },
+    "imageSize": {
+      "type": "string",
+      "default": "large"
+    },
+    "borderRadius": {
+      "type": "number",
+      "default": 0
+    },
+    "hoverEffect": {
+      "type": "string",
+      "default": "zoom"
+    }
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "html": false
+  },
+  "textdomain": "basic-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

@@ -19,6 +19,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+// WP enqueue scripts and styles
+function wp_nonce_block_enqueue_assets() {
+	
+		// Enqueue block editor assets.
+		wp_enqueue_style(
+			'basic-block-components',
+			plugin_dir_url(__FILE__) . 'assets/css/components.css',
+			[],
+			'1.0.0',
+			false // Load in footer
+		);
+	}
+	add_action( 'enqueue_block_editor_assets', 'wp_nonce_block_enqueue_assets' );
 // Register 'WP Nonce block' category
 function wp_nonce_block_category($categories, $post)
 {

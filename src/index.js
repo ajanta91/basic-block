@@ -3,7 +3,7 @@ import { registerBlockType } from '@wordpress/blocks';
 // Import Blocks
 import * as Heading from './blocks/Heading';
 import * as Button from './blocks/Button';
-//import * as ImageGallery from './blocks/image-gallery';
+import * as ImageGallery from './blocks/ImageGallery';
 
 // Register Blocks
 const registerBlock = (block) => {
@@ -12,4 +12,4 @@ const registerBlock = (block) => {
 	console.log('block name:', block.name);
 };
 
-[Button, Heading].forEach(registerBlock);
+[Button, Heading, ImageGallery].forEach(registerBlock);

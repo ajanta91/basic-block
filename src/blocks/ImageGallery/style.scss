@@ -1,0 +1,54 @@
+.bb-image-gallery-wrapper {
+  --bb-columns: 3;
+  --bb-gutter: 15px;
+  --bb-radius: 0px;
+  width: 100%;
+}
+
+.bb-image-gallery {
+  display: grid;
+  grid-template-columns: repeat(var(--bb-columns), 1fr);
+  gap: var(--bb-gutter);
+}
+
+.bb-image-gallery-item {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--bb-radius);
+}
+
+.bb-image-gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.bb-image-gallery-wrapper[data-hover='zoom'] .bb-image-gallery-item:hover img {
+  transform: scale(1.08);
+}
+
+.bb-caption { font-size: 12px; text-align: center; padding: 6px 4px; }
+.bb-image-gallery {
+  --bb-gallery-gutter: 15px;
+  .bb-gallery-grid {
+    display: grid;
+    gap: var(--bb-gallery-gutter);
+  }
+  &.cols-1 .bb-gallery-grid { grid-template-columns: repeat(1, 1fr); }
+  &.cols-2 .bb-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  &.cols-3 .bb-gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  &.cols-4 .bb-gallery-grid { grid-template-columns: repeat(4, 1fr); }
+  &.cols-5 .bb-gallery-grid { grid-template-columns: repeat(5, 1fr); }
+  &.cols-6 .bb-gallery-grid { grid-template-columns: repeat(6, 1fr); }
+
+  .bb-gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    img { width: 100%; height: auto; display: block; }
+    &:hover { opacity: .85; cursor: zoom-in; }
+  }
+}
