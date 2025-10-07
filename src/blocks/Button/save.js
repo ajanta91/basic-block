@@ -29,10 +29,10 @@ export default function save({ attributes }) {
 	const blockProps = useBlockProps.save({
 		style: {
 			padding: padding
-				? `${padding.top || 0}px ${padding.right || 0}px ${padding.bottom || 0}px ${padding.left || 0}px`
+				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
 				: undefined,
 			margin: margin
-				? `${margin.top || 0}px ${margin.right || 0}px ${margin.bottom || 0}px ${margin.left || 0}px`
+				? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
 				: undefined,
 			backgroundColor: backgroundColor || undefined,
 			color: textColor || undefined,
