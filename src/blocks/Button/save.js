@@ -20,23 +20,24 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 export default function save({ attributes }) {
 	const {
-		backgroundColor,
-		fontSize,
-		textColor,
 		margin,
-		padding } = attributes;
+		padding,
+		fontFamily_, fontSize_, fontWeight, transform, fontStyle, textDecoration } = attributes;
 	
 	const blockProps = useBlockProps.save({
 		style: {
+			fontSize: fontSize_ ? `${fontSize_}px` : undefined,
+			fontFamily: fontFamily_ || undefined,
+			fontWeight: fontWeight || undefined,
+			textTransform: transform || undefined,
+			fontStyle: fontStyle || undefined,
+			textDecoration: textDecoration || undefined,
 			padding: padding
 				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
 				: undefined,
 			margin: margin
 				? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
-				: undefined,
-			backgroundColor: backgroundColor || undefined,
-			color: textColor || undefined,
-			fontSize: fontSize ? `${fontSize}px` : undefined,
+				: undefined,			
 		}
 	});
 

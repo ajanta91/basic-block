@@ -43,6 +43,10 @@ const SpacingControl = ({ label, values, onChange }) => {
           options={[
             { label: __('px', 'basic-block'), value: 'px' },
             { label: __('%', 'basic-block'), value: '%' },
+            { label: __('em', 'basic-block'), value: 'em' },
+            { label: __('rem', 'basic-block'), value: 'rem' },
+            { label: __('vw', 'basic-block'), value: 'vw' },
+            { label: __('vh', 'basic-block'), value: 'vh' }
           ]}
           onChange={(value) => onChange({ ...values, unit: value })}
         />

@@ -2,13 +2,28 @@
 .bb-spacing-control__inputs {
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
+    align-items: end;
 }
 
 .bb-spacing-control__inputs > .components-base-control{
     margin-bottom: 0;
 }
-.bb-spacing-control__inputs > .components-base-control .components-text-control__input{
+.bb-spacing-control__inputs > .components-base-control .components-text-control__input:not(:focus){
     appearance: none;
+    border: 1px solid #ddd;
+    border-right: none;
+}
+.bb-spacing-control__inputs > .components-base-control .components-text-control__input:focus{
+    border-color: #999;
+    box-shadow: none;
+}
+.bb-spacing-control__inputs > .components-base-control:first-child .components-text-control__input{
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.bb-spacing-control__inputs > .components-base-control:last-child .components-input-control__backdrop{
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
     border: 1px solid #ddd;
 }
 .bb-spacing-control__inputs .components-base-control .components-select-control__input{
@@ -25,4 +40,27 @@ input[type=number]::-webkit-inner-spin-button {
 /* Firefox */
 .bb-spacing-control__inputs .components-base-control input[type=number].components-select-control__input {
     -moz-appearance: textfield;
+}
+
+
+/* Typography Control group style */
+.basic_block_panel .components-button:focus:not(:disabled){
+    box-shadow: none;
+}
+
+.components-panel__body.bb_typography .components-input-control__container {
+    border-radius: 6px;
+}
+.components-panel__body.bb_typography .components-input-control__container .components-input-control__backdrop{
+    border-color: #dbdbdb;
+}
+.basic_block_panel .components-base-control .components-input-control__label {
+    text-transform: capitalize !important;
+    font-size: 12px !important;
+}
+.components-panel__body.basic_block_panel.is-opened>.components-panel__body-title {
+    margin-bottom: 16px !important;
+}
+.basic_block_panel .components-panel__body-toggle.components-button{
+    background: linear-gradient(20deg, #eaf9f3, #cad7f5ab);
 }

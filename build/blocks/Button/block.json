@@ -41,22 +41,36 @@
         "bottom": "",
         "left": ""
       }
+    },
+    "fontFamily_": {
+      "type": "string",
+      "default": ""
+    },
+    "fontSize_": {
+      "type": "string",
+      "default": ""
+    },
+    "fontWeight": {
+      "type": "string",
+      "default": ""
+    },
+    "transform": {
+      "type": "string",
+      "default": ""
+    },
+    "fontStyle": {
+      "type": "string",
+      "default": ""
+    },
+    "textDecoration": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {
-    "color": {
-      "background": true,
-      "text": true
-    },
+    "color": false,
     "html": false,
-    "typography": {
-      "fontSize": true,
-      "lineHeight": true,
-      "fontFamily": true,
-      "fontWeight": true,
-      "textTransform": true,
-      "textDecoration": true
-    }
+    "typography": false
   },
   "textdomain": "basic-block",
   "editorScript": "file:./index.js",
