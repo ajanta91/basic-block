@@ -6,9 +6,10 @@
 
 import { __ } from '@wordpress/i18n';
 import { PanelBody, SelectControl, RangeControl } from '@wordpress/components';
+import { RangeContainer } from '../RangeContainer/RangeContainer';
 
 const TypographyGroupControls = ({ slug, attributes, setAttributes }) => {
-    const { fontFamily_, fontSize_, fontWeight, transform, fontStyle, textDecoration, } = attributes;
+    const { fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration, } = attributes;
 
 
     return (
@@ -28,12 +29,16 @@ const TypographyGroupControls = ({ slug, attributes, setAttributes }) => {
                 ]}
                 onChange={(value) => setAttributes({ fontFamily_: value })}
             />
-            <RangeControl
-                label={__('Font Size (px)', 'basic-block')}
+            <RangeContainer
+                label={__('Font Size', 'basic-block')}
                 value={fontSize_}
                 onChange={(value) => setAttributes({ fontSize_: value })}
-                min={8}
-                max={72}
+                min={1}
+                max={200}
+                step={1}
+                unit={fontSizeUnit || 'px'}
+                onUnitChange={(u) => setAttributes({ fontSizeUnit: u })}
+                defaultValue={16}
             />
             <SelectControl
                 label={__('Font Weight', 'basic-block')}

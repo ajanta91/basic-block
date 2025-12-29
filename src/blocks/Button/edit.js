@@ -60,13 +60,20 @@ export default function Edit({ attributes, setAttributes }) {
 		openInNewTab,
 		buttonClass,
 		buttonId,
+		fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration,
 		margin,
 		padding } = attributes;
 	console.log('Edit function called with attributes:', attributes);
 
 	const blockProps = useBlockProps({
 		style: {
-			...TypographyStyleProps({ attributes }),
+			//...TypographyStyleProps({ attributes }),
+			fontSize: fontSize_ ? `${fontSize_}${fontSizeUnit || 'px'}` : undefined,
+			fontFamily: fontFamily_ || undefined,
+			fontWeight: fontWeight || undefined,
+			textTransform: transform || undefined,
+			fontStyle: fontStyle || undefined,
+			textDecoration: textDecoration || undefined,
 			padding: padding
 				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
 				: undefined,

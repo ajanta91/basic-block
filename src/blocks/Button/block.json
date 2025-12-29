@@ -43,34 +43,32 @@
       }
     },
     "fontFamily_": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "fontSize_": {
+      "type": "number"
+    },
+    "fontSizeUnit": {
       "type": "string",
-      "default": ""
+      "default": "px"
     },
     "fontWeight": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "transform": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "fontStyle": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "textDecoration": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     }
   },
   "supports": {
-    "color": false,
-    "html": false,
-    "typography": false
+
+    "html": false
+  
   },
   "textdomain": "basic-block",
   "editorScript": "file:./index.js",

@@ -1,0 +1,42 @@
+.bb-range-container {
+    margin-bottom: 12px;
+}
+
+.bb-range-header {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.bb-range-label {
+    font-weight: 500;
+}
+
+.bb-range-value {
+    opacity: 0.8;
+    font-variant-numeric: tabular-nums;
+}
+
+.bb-range-reset {
+    justify-self: end;
+}
+
+.bb-range-controls {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    align-items: start;
+    gap: 0;
+}
+
+.bb-range-number {
+    width: 100%;
+}
+.bb-range-controls .components-base-control.components-range-control .components-base-control__field,
+.bb-range-controls .components-base-control.components-range-control {
+    margin-bottom: 0;
+}
+.bb-range-controls .components-base-control.components-range-control .components-input-control__container{
+    width: 45px;
+}

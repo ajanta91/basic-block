@@ -20,19 +20,17 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 export default function save({ attributes }) {
 	const {
-		margin,
-		padding,
-		fontFamily_, fontSize_, fontWeight, transform, fontStyle, textDecoration } = attributes;
+		margin,	padding, fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration } = attributes;
 	
 	const blockProps = useBlockProps.save({
 		style: {
-			fontSize: fontSize_ ? `${fontSize_}px` : undefined,
-			fontFamily: fontFamily_ || undefined,
-			fontWeight: fontWeight || undefined,
-			textTransform: transform || undefined,
-			fontStyle: fontStyle || undefined,
+			fontSize      : fontSize_ ? `${fontSize_}${fontSizeUnit || 'px'}` : undefined,
+			fontFamily    : fontFamily_ || undefined,
+			fontWeight    : fontWeight || undefined,
+			textTransform : transform || undefined,
+			fontStyle     : fontStyle || undefined,
 			textDecoration: textDecoration || undefined,
-			padding: padding
+			padding       : padding
 				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
 				: undefined,
 			margin: margin
@@ -40,6 +38,7 @@ export default function save({ attributes }) {
 				: undefined,			
 		}
 	});
+	console.log('save props', blockProps);
 
 	return (
 		<p {...blockProps}>
