@@ -32,7 +32,9 @@ import {
 	TextControl,
 	ToggleControl,
 	ColorPalette,
-	RangeControl
+	RangeControl,
+	ColorPicker,
+	ColorIndicator
 } from '@wordpress/components';
 import SpacingControl from '../../components/SpacingControl';
 
@@ -60,6 +62,7 @@ export default function Edit({ attributes, setAttributes }) {
 		openInNewTab,
 		buttonClass,
 		buttonId,
+		textColor, btnBackground,
 		fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration,
 		margin,
 		padding } = attributes;
@@ -80,6 +83,8 @@ export default function Edit({ attributes, setAttributes }) {
 			margin: margin
 				? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
 				: undefined,
+			color: textColor || undefined,
+			backgroundColor: btnBackground || undefined,
 		},
 		className: attributes.customClass,
 	});
@@ -138,10 +143,6 @@ console.log('Block Props', blockProps);
 						}
 					/>
 				</PanelBody>
-
-
-
-
 			</InspectorControls>
 
 			<InspectorControls group="styles">
@@ -151,6 +152,21 @@ console.log('Block Props', blockProps);
 					attributes={attributes}
 					setAttributes={setAttributes}
 				/>
+
+				<PanelBody title={__('Color', 'basic-block')} className='basic_block_panel'>
+					
+					<ColorPalette						
+						value={textColor}
+						onChange={(color) => setAttributes({ textColor: color })}
+					/>
+					<ColorPalette
+						label={__('Background Color', 'basic-block')}
+						value={btnBackground}
+						onChange={(color) => setAttributes({ btnBackground: color })}
+					/>
+					
+					
+				</PanelBody>
 
 				<PanelBody title={__('Spacing', 'basic-block')} className='basic_block_panel'>
 					<SpacingControl
