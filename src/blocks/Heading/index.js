@@ -13,17 +13,11 @@ import save from './save';
 import metadata from './block.json';
 
 /**
- * Define a custom SVG icon for the block. This icon will appear in
- * the Inserter and when the user selects the block in the Editor.
+ * Heading icon for the block.
  */
-const calendarIcon = (
-	<svg
-		viewBox="0 0 24 24"
-		xmlns="http://www.w3.org/2000/svg"
-		aria-hidden="true"
-		focusable="false"
-	>
-		<path d="M23.78,4.83H4.22V4.22H23.78ZM24.39,3H3.49A.52.52,0,0,0,3,3.49v2A.52.52,0,0,0,3.49,6h20.9c.24,0,.61-.24.61-.49h0v-2c0-.25-.37-.49-.61-.49h0" /><path d="M13.39,9.72H4.22V9.11h9.17Zm.73-1.83H3.49A.52.52,0,0,0,3,8.38v1.95a.52.52,0,0,0,.49.49H14a.54.54,0,0,0,.49-.49V8.38c.12-.25-.12-.49-.37-.49" /><path d="M23.78,18.89H4.22v-.61H23.78Zm.61-1.83H3.49c-.25,0-.49.36-.49.61H3v1.95a.52.52,0,0,0,.49.49h20.9c.24,0,.61-.24.61-.49h0V17.67a.57.57,0,0,0-.53-.61h-.08" /><path d="M13.39,23.78H4.22v-.61h9.17Zm.73-1.84H3.49c-.25,0-.49.37-.49.62H3v2a.52.52,0,0,0,.49.49H14c.24,0,.49-.37.49-.61h0V22.56a.46.46,0,0,0-.23-.61h-.14" />
+const headingIcon = (
+	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M6 5V19M18 5V19M6 12H18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 	</svg>
 );
 
@@ -32,8 +26,8 @@ const calendarIcon = (
  *
  * @see https://developer.wordpress.org/block-editor/developers/block-api/#registering-a-block
  */
-registerBlockType( metadata.name, {
-	icon: calendarIcon,
+registerBlockType(metadata.name, {
+	icon: headingIcon,
 	edit: Edit,
 	save,
-} );
+});

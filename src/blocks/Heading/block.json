@@ -2,35 +2,84 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "basic-block/heading",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "title": "Heading [BB]",
   "category": "wp-nonce-blocks",
-  "description": "Display a Button block.",
+  "description": "Display a customizable heading with various levels and styles.",
   "example": {},
   "attributes": {
-    "fallbackCurrentYear": {
+    "content": {
+      "type": "string",
+      "default": ""
+    },
+    "level": {
+      "type": "number",
+      "default": 2
+    },
+    "textAlign": {
       "type": "string"
     },
-    "showStartingYear": {
-      "type": "boolean"
-    },
-    "startingYear": {
+    "textColor": {
       "type": "string"
+    },
+    "backgroundColor": {
+      "type": "string"
+    },
+    "fontFamily": {
+      "type": "string"
+    },
+    "fontSize": {
+      "type": "number"
+    },
+    "fontSizeUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "fontWeight": {
+      "type": "string"
+    },
+    "textTransform": {
+      "type": "string"
+    },
+    "fontStyle": {
+      "type": "string"
+    },
+    "textDecoration": {
+      "type": "string"
+    },
+    "lineHeight": {
+      "type": "number"
+    },
+    "letterSpacing": {
+      "type": "number"
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "top": "",
+        "right": "",
+        "bottom": "",
+        "left": "",
+        "unit": "px"
+      }
+    },
+    "padding": {
+      "type": "object",
+      "default": {
+        "top": "",
+        "right": "",
+        "bottom": "",
+        "left": "",
+        "unit": "px"
+      }
     }
   },
   "supports": {
-    "color": {
-      "background": false,
-      "text": true
-    },
     "html": false,
-    "typography": {
-      "fontSize": true
-    }
+    "anchor": true
   },
   "textdomain": "basic-block",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css",
-  "render": "file:./render.php"
+  "style": "file:./style-index.css"
 }

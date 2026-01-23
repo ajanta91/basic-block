@@ -32,16 +32,11 @@ import {
 	TextControl,
 	ToggleControl,
 	ColorPalette,
-	RangeControl,
-	ColorPicker,
-	ColorIndicator
 } from '@wordpress/components';
 import SpacingControl from '../../components/SpacingControl';
 
-import { TypographyGroupControls, TypographyStyleProps } from '../../components/Typography/TypographyControl';
-
-
-
+import { TypographyGroupControls } from '../../components/Typography/TypographyControl';
+import { getButtonStyles } from './utils';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -56,40 +51,12 @@ import { TypographyGroupControls, TypographyStyleProps } from '../../components/
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const {
-		buttonLabel,
-		buttonUrl,
-		openInNewTab,
-		buttonClass,
-		buttonId,
-		textColor, btnBackground,
-		fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration,
-		margin,
-		padding } = attributes;
-	console.log('Edit function called with attributes:', attributes);
+	const { textColor, btnBackground, margin, padding } = attributes;
 
 	const blockProps = useBlockProps({
-		style: {
-			//...TypographyStyleProps({ attributes }),
-			fontSize: fontSize_ ? `${fontSize_}${fontSizeUnit || 'px'}` : undefined,
-			fontFamily: fontFamily_ || undefined,
-			fontWeight: fontWeight || undefined,
-			textTransform: transform || undefined,
-			fontStyle: fontStyle || undefined,
-			textDecoration: textDecoration || undefined,
-			padding: padding
-				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
-				: undefined,
-			margin: margin
-				? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
-				: undefined,
-			color: textColor || undefined,
-			backgroundColor: btnBackground || undefined,
-		},
+		style: getButtonStyles(attributes),
 		className: attributes.customClass,
 	});
-
-console.log('Block Props', blockProps);
 
 	return (
 		<>
@@ -185,7 +152,8 @@ console.log('Block Props', blockProps);
 			<div {...blockProps}>
 				<a
 					href={attributes.buttonUrl}
-					target={attributes.openInNewTab ? '_blank' : '_self'}
+					target={attributes.openInNewTab ? '_blank' : undefined}
+					rel={attributes.openInNewTab ? 'noopener noreferrer' : undefined}
 					className={attributes.buttonClass}
 					id={attributes.buttonId}
 				>

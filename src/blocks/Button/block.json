@@ -42,10 +42,10 @@
         "left": ""
       }
     },
-    "fontFamily_": {
+    "fontFamily": {
       "type": "string"
     },
-    "fontSize_": {
+    "fontSize": {
       "type": "number"
     },
     "fontSizeUnit": {
@@ -63,6 +63,20 @@
     },
     "textDecoration": {
       "type": "string"
+    },
+    "buttonId": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string"
+    },
+    "btnBackground": {
+      "type": "string"
+    },
+    "customClass": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

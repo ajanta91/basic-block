@@ -33,7 +33,7 @@ function wp_nonce_block_enqueue_assets() {
 	}
 	add_action( 'enqueue_block_editor_assets', 'wp_nonce_block_enqueue_assets' );
 // Register 'WP Nonce block' category
-function wp_nonce_block_category($categories, $post)
+function wp_nonce_block_category( $categories )
 {
 	return array_merge(
 		$categories,
@@ -46,7 +46,7 @@ function wp_nonce_block_category($categories, $post)
 		]
 	);
 }
-add_filter('block_categories_all', 'wp_nonce_block_category', 10, 2);
+add_filter( 'block_categories_all', 'wp_nonce_block_category', 10, 1 );
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -56,7 +56,7 @@ add_filter('block_categories_all', 'wp_nonce_block_category', 10, 2);
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
- function create_block_copyright_date_block_block_init() {
+ function basic_block_init() {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 	 * based on the registered block metadata.
@@ -92,4 +92,4 @@ add_filter('block_categories_all', 'wp_nonce_block_category', 10, 2);
 	
 	
 }
-add_action( 'init', 'create_block_copyright_date_block_block_init' );
+add_action( 'init', 'basic_block_init' );

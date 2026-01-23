@@ -9,7 +9,7 @@ import { PanelBody, SelectControl, RangeControl } from '@wordpress/components';
 import { RangeContainer } from '../RangeContainer/RangeContainer';
 
 const TypographyGroupControls = ({ slug, attributes, setAttributes }) => {
-    const { fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration, } = attributes;
+    const { fontFamily, fontSize, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration, } = attributes;
 
 
     return (
@@ -19,7 +19,7 @@ const TypographyGroupControls = ({ slug, attributes, setAttributes }) => {
         >
             <SelectControl
                 label={__('Font Family', 'basic-block')}
-                value={fontFamily_}
+                value={fontFamily}
                 options={[
                     { label: __('Default', 'basic-block'), value: '' },
                     { label: __('Arial', 'basic-block'), value: 'Arial, sans-serif' },
@@ -27,12 +27,12 @@ const TypographyGroupControls = ({ slug, attributes, setAttributes }) => {
                     { label: __('Helvetica', 'basic-block'), value: 'Helvetica, sans-serif' },
                     { label: __('Times New Roman', 'basic-block'), value: '"Times New Roman", serif' },
                 ]}
-                onChange={(value) => setAttributes({ fontFamily_: value })}
+                onChange={(value) => setAttributes({ fontFamily: value })}
             />
             <RangeContainer
                 label={__('Font Size', 'basic-block')}
-                value={fontSize_}
-                onChange={(value) => setAttributes({ fontSize_: value })}
+                value={fontSize}
+                onChange={(value) => setAttributes({ fontSize: value })}
                 min={1}
                 max={200}
                 step={1}
@@ -102,8 +102,8 @@ export { TypographyGroupControls };
 // TypographyControl style applyment in edit.js
 const TypographyStyleProps = ({ attributes }) => {
     return {
-        fontFamily: attributes.fontFamily_ || undefined,
-        fontSize: attributes.fontSize_ ? `${attributes.fontSize_}px` : undefined,
+        fontFamily: attributes.fontFamily || undefined,
+        fontSize: attributes.fontSize ? `${attributes.fontSize}px` : undefined,
         fontWeight: attributes.fontWeight || undefined,
         textTransform: attributes.transform || undefined,
         fontStyle: attributes.fontStyle || undefined,

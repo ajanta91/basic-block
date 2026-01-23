@@ -5,6 +5,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps } from '@wordpress/block-editor';
+import { getButtonStyles } from './utils';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -19,32 +20,21 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
-	const {
-		textColor, btnBackground, margin, padding, fontFamily_, fontSize_, fontSizeUnit, fontWeight, transform, fontStyle, textDecoration } = attributes;
-	
 	const blockProps = useBlockProps.save({
-		style: {
-			fontSize      : fontSize_ ? `${fontSize_}${fontSizeUnit || 'px'}` : undefined,
-			fontFamily    : fontFamily_ || undefined,
-			fontWeight    : fontWeight || undefined,
-			textTransform : transform || undefined,
-			fontStyle     : fontStyle || undefined,
-			textDecoration: textDecoration || undefined,
-			padding       : padding
-				? `${padding.top || 0}${padding.unit || 'px'} ${padding.right || 0}${padding.unit || 'px'} ${padding.bottom || 0}${padding.unit || 'px'} ${padding.left || 0}${padding.unit || 'px'}`
-				: undefined,
-			margin: margin
-				? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
-				: undefined,
-			color: textColor || undefined,
-			backgroundColor: btnBackground || undefined,
-		}
+		style: getButtonStyles(attributes),
 	});
-	console.log('save props', blockProps);
 
 	return (
 		<p {...blockProps}>
-			<a href={attributes.buttonUrl} id={attributes.buttonId} className={`wp_nonce_button ${attributes.buttonClass}`} >{ attributes.buttonLabel}</a>
+			<a
+				href={attributes.buttonUrl}
+				id={attributes.buttonId}
+				className={`wp_nonce_button ${attributes.buttonClass}`}
+				target={attributes.openInNewTab ? '_blank' : undefined}
+				rel={attributes.openInNewTab ? 'noopener noreferrer' : undefined}
+			>
+				{attributes.buttonLabel}
+			</a>
 		</p>
 	);
 }

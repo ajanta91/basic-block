@@ -1,46 +1,37 @@
 /**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import {
+	InspectorControls,
+	BlockControls,
+	RichText,
+	useBlockProps,
+	AlignmentToolbar,
+} from '@wordpress/block-editor';
+import {
+	PanelBody,
+	SelectControl,
+	ColorPalette,
+	ToolbarGroup,
+	ToolbarDropdownMenu,
+} from '@wordpress/components';
 
 /**
- * Imports the InspectorControls component, which is used to wrap
- * the block's custom controls that will appear in in the Settings
- * Sidebar when the block is selected.
- *
- * Also imports the React hook that is used to mark the block wrapper
- * element. It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#inspectorcontrols
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
+ * Internal dependencies
  */
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import SpacingControl from '../../components/SpacingControl';
+import { TypographyGroupControls } from '../../components/Typography/TypographyControl';
+import { getHeadingStyles } from './utils';
 
 /**
- * Imports the necessary components that will be used to create
- * the user interface for the block's settings.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/components/panel/#panelbody
- * @see https://developer.wordpress.org/block-editor/reference-guides/components/text-control/
- * @see https://developer.wordpress.org/block-editor/reference-guides/components/toggle-control/
+ * Heading level options for the toolbar dropdown.
  */
-import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
-
-/**
- * Imports the useEffect React Hook. This is used to set an attribute when the
- * block is loaded in the Editor.
- *
- * @see https://react.dev/reference/react/useEffect
- */
-import { useEffect } from 'react';
+const HEADING_LEVELS = [1, 2, 3, 4, 5, 6];
 
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @param {Object}   props               Properties passed to the function.
  * @param {Object}   props.attributes    Available block attributes.
@@ -48,54 +39,102 @@ import { useEffect } from 'react';
  *
  * @return {Element} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
-	const { fallbackCurrentYear, showStartingYear, startingYear } = attributes;
+export default function Edit({ attributes, setAttributes }) {
+	const {
+		content,
+		level,
+		textAlign,
+		textColor,
+		backgroundColor,
+		margin,
+		padding,
+	} = attributes;
 
-	// Get the current year and make sure it's a string.
-	const currentYear = new Date().getFullYear().toString() + ` Hello`;
+	const TagName = `h${level}`;
 
-	// When the block loads, set the fallbackCurrentYear attribute to the
-	// current year if it's not already set.
-	useEffect( () => {
-		if ( currentYear !== fallbackCurrentYear ) {
-			setAttributes( { fallbackCurrentYear: currentYear } );
-		}
-	}, [ currentYear, fallbackCurrentYear, setAttributes ] );
+	const blockProps = useBlockProps({
+		style: getHeadingStyles(attributes),
+	});
 
-	let displayDate;
-
-	// Display the starting year as well if supplied by the user.
-	if ( showStartingYear && startingYear ) {
-		displayDate = startingYear + '–' + currentYear;
-	} else {
-		displayDate = currentYear;
-	}
-console.log('Block Props', useBlockProps());
 	return (
 		<>
-			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'basic-block' ) }>
-					<ToggleControl
-						checked={ showStartingYear }
-						label={ __(	'Show starting year','basic-block') }
-						onChange={ () =>
-							setAttributes( {
-								showStartingYear: ! showStartingYear,
-							} )
-						}
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarDropdownMenu
+						icon={<span style={{ fontWeight: 'bold' }}>H{level}</span>}
+						label={__('Change heading level', 'basic-block')}
+						controls={HEADING_LEVELS.map((headingLevel) => ({
+							title: `H${headingLevel}`,
+							isActive: level === headingLevel,
+							onClick: () => setAttributes({ level: headingLevel }),
+						}))}
 					/>
-					{ showStartingYear && (
-						<TextControl
-							label={ __('Starting year','basic-block') }
-							value={ startingYear }
-							onChange={ ( value ) =>
-								setAttributes( { startingYear: value } )
-							}
-						/>
-					) }
+				</ToolbarGroup>
+				<AlignmentToolbar
+					value={textAlign}
+					onChange={(value) => setAttributes({ textAlign: value })}
+				/>
+			</BlockControls>
+
+			<InspectorControls>
+				<PanelBody title={__('Settings', 'basic-block')}>
+					<SelectControl
+						label={__('Heading Level', 'basic-block')}
+						value={level}
+						options={HEADING_LEVELS.map((l) => ({
+							label: `H${l}`,
+							value: l,
+						}))}
+						onChange={(value) => setAttributes({ level: parseInt(value, 10) })}
+					/>
 				</PanelBody>
 			</InspectorControls>
-			<p { ...useBlockProps() }>© { displayDate }</p>
+
+			<InspectorControls group="styles">
+				<TypographyGroupControls
+					slug="heading"
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
+
+				<PanelBody title={__('Color', 'basic-block')} className="basic_block_panel">
+					<p>{__('Text Color', 'basic-block')}</p>
+					<ColorPalette
+						value={textColor}
+						onChange={(color) => setAttributes({ textColor: color })}
+					/>
+					<p>{__('Background Color', 'basic-block')}</p>
+					<ColorPalette
+						value={backgroundColor}
+						onChange={(color) => setAttributes({ backgroundColor: color })}
+					/>
+				</PanelBody>
+
+				<PanelBody title={__('Spacing', 'basic-block')} className="basic_block_panel">
+					<SpacingControl
+						label={__('Margin', 'basic-block')}
+						values={margin || { top: '', right: '', bottom: '', left: '', unit: 'px' }}
+						onChange={(newMargin) => setAttributes({ margin: newMargin })}
+					/>
+					<SpacingControl
+						label={__('Padding', 'basic-block')}
+						values={padding || { top: '', right: '', bottom: '', left: '', unit: 'px' }}
+						onChange={(newPadding) => setAttributes({ padding: newPadding })}
+					/>
+				</PanelBody>
+			</InspectorControls>
+
+			<RichText
+				{...blockProps}
+				tagName={TagName}
+				value={content}
+				onChange={(value) => setAttributes({ content: value })}
+				placeholder={__('Write heading...', 'basic-block')}
+				style={{
+					...blockProps.style,
+					textAlign: textAlign,
+				}}
+			/>
 		</>
 	);
 }
