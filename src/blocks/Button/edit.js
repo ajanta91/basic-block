@@ -16,7 +16,14 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#inspectorcontrols
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
+import {
+	InspectorControls,
+	BlockControls,
+	AlignmentToolbar,
+	useBlockProps,
+	__experimentalLinkControl as LinkControl,
+} from '@wordpress/block-editor';
 
 
 /**
@@ -32,7 +39,11 @@ import {
 	TextControl,
 	ToggleControl,
 	ColorPalette,
+	ToolbarGroup,
+	ToolbarButton,
+	Popover,
 } from '@wordpress/components';
+import { link } from '@wordpress/icons';
 import SpacingControl from '../../components/SpacingControl';
 
 import { TypographyGroupControls } from '../../components/Typography/TypographyControl';
@@ -51,15 +62,60 @@ import { getButtonStyles } from './utils';
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { textColor, btnBackground, margin, padding } = attributes;
+	const { textColor, btnBackground, margin, padding, textAlign } = attributes;
+	const [isLinkPopoverOpen, setIsLinkPopoverOpen] = useState(false);
 
 	const blockProps = useBlockProps({
 		style: getButtonStyles(attributes),
 		className: attributes.customClass,
 	});
 
+	const linkValue = {
+		url: attributes.buttonUrl,
+		opensInNewTab: attributes.openInNewTab,
+	};
+
 	return (
 		<>
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton
+						icon={link}
+						label={__('Link', 'basic-block')}
+						onClick={() => setIsLinkPopoverOpen(!isLinkPopoverOpen)}
+						isPressed={isLinkPopoverOpen}
+					/>
+					{isLinkPopoverOpen && (
+						<Popover
+							position="bottom center"
+							onClose={() => setIsLinkPopoverOpen(false)}
+							focusOnMount="firstElement"
+						>
+							<LinkControl
+								value={linkValue}
+								onChange={(newLink) => {
+									setAttributes({
+										buttonUrl: newLink.url,
+										openInNewTab: newLink.opensInNewTab,
+									});
+								}}
+								onRemove={() => {
+									setAttributes({
+										buttonUrl: '',
+										openInNewTab: false,
+									});
+									setIsLinkPopoverOpen(false);
+								}}
+							/>
+						</Popover>
+					)}
+				</ToolbarGroup>
+				<AlignmentToolbar
+					value={textAlign}
+					onChange={(value) => setAttributes({ textAlign: value })}
+				/>
+			</BlockControls>
+
 			<InspectorControls>
 				<PanelBody title={__('Settings', 'basic-block')}>
 
@@ -149,7 +205,7 @@ export default function Edit({ attributes, setAttributes }) {
 				</PanelBody>
 			</InspectorControls>
 
-			<div {...blockProps}>
+			<div {...blockProps} style={{ ...blockProps.style, textAlign }}>
 				<a
 					href={attributes.buttonUrl}
 					target={attributes.openInNewTab ? '_blank' : undefined}

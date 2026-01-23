@@ -77,6 +77,10 @@
     "customClass": {
       "type": "string",
       "default": ""
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "left"
     }
   },
   "supports": {

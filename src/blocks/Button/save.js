@@ -21,7 +21,10 @@ import { getButtonStyles } from './utils';
  */
 export default function save({ attributes }) {
 	const blockProps = useBlockProps.save({
-		style: getButtonStyles(attributes),
+		style: {
+			...getButtonStyles(attributes),
+			textAlign: attributes.textAlign,
+		},
 	});
 
 	return (
