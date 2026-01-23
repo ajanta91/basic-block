@@ -49,6 +49,7 @@ import { TypographyGroupControls } from '../../components/Typography/TypographyC
 import { BorderGroupControls } from '../../components/BorderControl/BorderControl';
 import { BoxShadowGroupControls } from '../../components/BoxShadowControl/BoxShadowControl';
 import { ColorControl } from '../../components/ColorControl/ColorControl';
+import { BackgroundGroupControls } from '../../components/BackgroundControl/BackgroundControl';
 import { getButtonStyles } from './utils';
 
 /**
@@ -64,7 +65,7 @@ import { getButtonStyles } from './utils';
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const { textColor, btnBackground, margin, padding, textAlign } = attributes;
+	const { textColor, margin, padding, textAlign } = attributes;
 	const [isLinkPopoverOpen, setIsLinkPopoverOpen] = useState(false);
 
 	const blockProps = useBlockProps({
@@ -184,12 +185,12 @@ export default function Edit({ attributes, setAttributes }) {
 						value={textColor}
 						onChange={(color) => setAttributes({ textColor: color })}
 					/>
-					<ColorControl
-						label={__('Background Color', 'basic-block')}
-						value={btnBackground}
-						onChange={(color) => setAttributes({ btnBackground: color })}
-					/>
 				</PanelBody>
+
+				<BackgroundGroupControls
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
 
 				<PanelBody title={__('Spacing', 'basic-block')} className='basic_block_panel'>
 					<SpacingControl

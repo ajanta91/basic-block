@@ -125,6 +125,90 @@
     "boxShadowInset": {
       "type": "boolean",
       "default": false
+    },
+    "bgType": {
+      "type": "string",
+      "default": "color"
+    },
+    "bgColor": {
+      "type": "string"
+    },
+    "bgGradientType": {
+      "type": "string",
+      "default": "linear"
+    },
+    "bgGradientAngle": {
+      "type": "number",
+      "default": 180
+    },
+    "bgGradientStops": {
+      "type": "array",
+      "default": [
+        { "color": "#000000", "position": 0 },
+        { "color": "#ffffff", "position": 100 }
+      ]
+    },
+    "bgImage": {
+      "type": "string"
+    },
+    "bgImageId": {
+      "type": "number"
+    },
+    "bgImageSize": {
+      "type": "string",
+      "default": "cover"
+    },
+    "bgImagePosition": {
+      "type": "string",
+      "default": "center center"
+    },
+    "bgImageRepeat": {
+      "type": "string",
+      "default": "no-repeat"
+    },
+    "bgImageAttachment": {
+      "type": "string",
+      "default": "scroll"
+    },
+    "bgImageBlendMode": {
+      "type": "string",
+      "default": "normal"
+    },
+    "bgParallax": {
+      "type": "boolean",
+      "default": false
+    },
+    "bgVideoUrl": {
+      "type": "string"
+    },
+    "bgVideoPoster": {
+      "type": "string"
+    },
+    "bgVideoLoop": {
+      "type": "boolean",
+      "default": true
+    },
+    "bgVideoMuted": {
+      "type": "boolean",
+      "default": true
+    },
+    "bgPatternImage": {
+      "type": "string"
+    },
+    "bgPatternOpacity": {
+      "type": "number",
+      "default": 100
+    },
+    "bgPatternSize": {
+      "type": "string",
+      "default": "auto"
+    },
+    "bgPatternBlendMode": {
+      "type": "string",
+      "default": "normal"
+    },
+    "bgOverlayColor": {
+      "type": "string"
     }
   },
   "supports": {

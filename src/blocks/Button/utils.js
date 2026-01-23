@@ -38,6 +38,76 @@ const getBoxShadowValue = (attributes) => {
 	return `${inset}${h}px ${v}px ${blur}px ${spread}px ${boxShadowColor}`;
 };
 
+/**
+ * Generates background CSS styles from attributes.
+ *
+ * @param {Object} attributes Block attributes.
+ * @return {Object} Background style properties.
+ */
+const getBackgroundStyles = (attributes) => {
+	const {
+		bgType,
+		bgColor,
+		bgGradientType,
+		bgGradientAngle,
+		bgGradientStops,
+		bgImage,
+		bgImageSize,
+		bgImagePosition,
+		bgImageRepeat,
+		bgImageAttachment,
+		bgImageBlendMode,
+		bgPatternImage,
+		bgPatternSize,
+	} = attributes;
+
+	const type = bgType || 'color';
+	const styles = {};
+
+	if (type === 'color' && bgColor) {
+		styles.backgroundColor = bgColor;
+	}
+
+	if (type === 'gradient') {
+		const stops = bgGradientStops || [
+			{ color: '#000000', position: 0 },
+			{ color: '#ffffff', position: 100 },
+		];
+		const gradientType = bgGradientType || 'linear';
+		const angle = bgGradientAngle || 180;
+
+		const colorStops = stops
+			.sort((a, b) => a.position - b.position)
+			.map((stop) => `${stop.color} ${stop.position}%`)
+			.join(', ');
+
+		if (gradientType === 'linear') {
+			styles.background = `linear-gradient(${angle}deg, ${colorStops})`;
+		} else {
+			styles.background = `radial-gradient(circle, ${colorStops})`;
+		}
+	}
+
+	if (type === 'image' && bgImage) {
+		styles.backgroundImage = `url(${bgImage})`;
+		styles.backgroundSize = bgImageSize || 'cover';
+		styles.backgroundPosition = bgImagePosition || 'center center';
+		styles.backgroundRepeat = bgImageRepeat || 'no-repeat';
+		styles.backgroundAttachment = bgImageAttachment || 'scroll';
+		if (bgImageBlendMode && bgImageBlendMode !== 'normal') {
+			styles.backgroundBlendMode = bgImageBlendMode;
+		}
+	}
+
+	if (type === 'pattern' && bgPatternImage) {
+		styles.backgroundImage = `url(${bgPatternImage})`;
+		styles.backgroundSize = bgPatternSize || 'auto';
+		styles.backgroundRepeat = 'repeat';
+	}
+
+	return styles;
+};
+
 export const getButtonStyles = (attributes) => {
 	const {
 		fontSize,
@@ -59,6 +129,9 @@ export const getButtonStyles = (attributes) => {
 		borderRadiusUnit,
 	} = attributes;
 
+	// Get background styles
+	const bgStyles = getBackgroundStyles(attributes);
+
 	return {
 		fontSize: fontSize ? `${fontSize}${fontSizeUnit || 'px'}` : undefined,
 		fontFamily: fontFamily || undefined,
@@ -73,11 +146,14 @@ export const getButtonStyles = (attributes) => {
 			? `${margin.top || 0}${margin.unit || 'px'} ${margin.right || 0}${margin.unit || 'px'} ${margin.bottom || 0}${margin.unit || 'px'} ${margin.left || 0}${margin.unit || 'px'}`
 			: undefined,
 		color: textColor || undefined,
-		backgroundColor: btnBackground || undefined,
+		// Use bgStyles.backgroundColor if bgType is set, otherwise fall back to btnBackground
+		backgroundColor: bgStyles.backgroundColor || btnBackground || undefined,
 		borderWidth: borderWidth ? `${borderWidth}${borderWidthUnit || 'px'}` : undefined,
 		borderStyle: borderStyle || undefined,
 		borderColor: borderColor || undefined,
 		borderRadius: borderRadius ? `${borderRadius}${borderRadiusUnit || 'px'}` : undefined,
 		boxShadow: getBoxShadowValue(attributes),
+		// Spread background styles (for gradient, image, pattern)
+		...bgStyles,
 	};
 };
