@@ -8,6 +8,36 @@
  * @param {Object} attributes Block attributes.
  * @return {Object} Style object for the block.
  */
+/**
+ * Generates box-shadow CSS value from attributes.
+ *
+ * @param {Object} attributes Block attributes.
+ * @return {string|undefined} Box shadow CSS value.
+ */
+const getBoxShadowValue = (attributes) => {
+	const {
+		boxShadowHorizontal,
+		boxShadowVertical,
+		boxShadowBlur,
+		boxShadowSpread,
+		boxShadowColor,
+		boxShadowInset,
+	} = attributes;
+
+	// If no shadow color is set, don't apply shadow
+	if (!boxShadowColor) {
+		return undefined;
+	}
+
+	const h = boxShadowHorizontal || 0;
+	const v = boxShadowVertical || 0;
+	const blur = boxShadowBlur || 0;
+	const spread = boxShadowSpread || 0;
+	const inset = boxShadowInset ? 'inset ' : '';
+
+	return `${inset}${h}px ${v}px ${blur}px ${spread}px ${boxShadowColor}`;
+};
+
 export const getButtonStyles = (attributes) => {
 	const {
 		fontSize,
@@ -21,6 +51,12 @@ export const getButtonStyles = (attributes) => {
 		margin,
 		textColor,
 		btnBackground,
+		borderWidth,
+		borderWidthUnit,
+		borderStyle,
+		borderColor,
+		borderRadius,
+		borderRadiusUnit,
 	} = attributes;
 
 	return {
@@ -38,5 +74,10 @@ export const getButtonStyles = (attributes) => {
 			: undefined,
 		color: textColor || undefined,
 		backgroundColor: btnBackground || undefined,
+		borderWidth: borderWidth ? `${borderWidth}${borderWidthUnit || 'px'}` : undefined,
+		borderStyle: borderStyle || undefined,
+		borderColor: borderColor || undefined,
+		borderRadius: borderRadius ? `${borderRadius}${borderRadiusUnit || 'px'}` : undefined,
+		boxShadow: getBoxShadowValue(attributes),
 	};
 };

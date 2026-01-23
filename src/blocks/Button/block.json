@@ -81,6 +81,50 @@
     "textAlign": {
       "type": "string",
       "default": "left"
+    },
+    "borderWidth": {
+      "type": "number"
+    },
+    "borderWidthUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "borderStyle": {
+      "type": "string",
+      "default": "none"
+    },
+    "borderColor": {
+      "type": "string"
+    },
+    "borderRadius": {
+      "type": "number"
+    },
+    "borderRadiusUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "boxShadowHorizontal": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowVertical": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowBlur": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowSpread": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowColor": {
+      "type": "string"
+    },
+    "boxShadowInset": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

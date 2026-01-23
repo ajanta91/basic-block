@@ -38,7 +38,6 @@ import {
 	PanelBody,
 	TextControl,
 	ToggleControl,
-	ColorPalette,
 	ToolbarGroup,
 	ToolbarButton,
 	Popover,
@@ -47,6 +46,9 @@ import { link } from '@wordpress/icons';
 import SpacingControl from '../../components/SpacingControl';
 
 import { TypographyGroupControls } from '../../components/Typography/TypographyControl';
+import { BorderGroupControls } from '../../components/BorderControl/BorderControl';
+import { BoxShadowGroupControls } from '../../components/BoxShadowControl/BoxShadowControl';
+import { ColorControl } from '../../components/ColorControl/ColorControl';
 import { getButtonStyles } from './utils';
 
 /**
@@ -177,18 +179,16 @@ export default function Edit({ attributes, setAttributes }) {
 				/>
 
 				<PanelBody title={__('Color', 'basic-block')} className='basic_block_panel'>
-					
-					<ColorPalette						
+					<ColorControl
+						label={__('Text Color', 'basic-block')}
 						value={textColor}
 						onChange={(color) => setAttributes({ textColor: color })}
 					/>
-					<ColorPalette
+					<ColorControl
 						label={__('Background Color', 'basic-block')}
 						value={btnBackground}
 						onChange={(color) => setAttributes({ btnBackground: color })}
 					/>
-					
-					
 				</PanelBody>
 
 				<PanelBody title={__('Spacing', 'basic-block')} className='basic_block_panel'>
@@ -203,9 +203,19 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={(newPadding) => setAttributes({ padding: newPadding })}
 					/>
 				</PanelBody>
+
+				<BorderGroupControls
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
+
+				<BoxShadowGroupControls
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
 			</InspectorControls>
 
-			<div {...blockProps} style={{ ...blockProps.style, textAlign }}>
+			<p {...blockProps} style={{ ...blockProps.style, textAlign }}>
 				<a
 					href={attributes.buttonUrl}
 					target={attributes.openInNewTab ? '_blank' : undefined}
@@ -215,7 +225,7 @@ export default function Edit({ attributes, setAttributes }) {
 				>
 					{attributes.buttonLabel}
 				</a>
-			</div>
+			</p>
 		</>
 	);
 }
