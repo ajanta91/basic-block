@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // WP enqueue scripts and styles
 function wp_nonce_block_enqueue_assets() {
-	
+
 		// Enqueue block editor assets.
 		wp_enqueue_style(
 			'basic-block-components',
@@ -32,6 +32,58 @@ function wp_nonce_block_enqueue_assets() {
 		);
 	}
 	add_action( 'enqueue_block_editor_assets', 'wp_nonce_block_enqueue_assets' );
+
+// Enqueue frontend assets for ImageGallery block
+function wp_nonce_block_frontend_assets() {
+	// Only load on frontend, not in admin
+	if ( is_admin() ) {
+		return;
+	}
+
+	wp_register_script(
+		'isotope',
+		plugin_dir_url( __FILE__ ) . 'assets/js/isotope.min.js',
+		[ 'jquery' ],
+		'3.0.6',
+		true
+	);
+
+	wp_register_script(
+		'magnific-popup',
+		plugin_dir_url( __FILE__ ) . 'assets/js/magnific-popup.min.js',
+		[ 'jquery' ],
+		'1.1.0',
+		true
+	);
+
+	wp_register_style(
+		'magnific-popup',
+		plugin_dir_url( __FILE__ ) . 'assets/css/magnific-popup.css',
+		[],
+		'1.1.0'
+	);
+
+	wp_register_script(
+		'gallery-init',
+		plugin_dir_url( __FILE__ ) . 'assets/js/gallery-init.js',
+		[ 'jquery', 'isotope', 'imagesloaded', 'magnific-popup' ],
+		'1.0.0',
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'wp_nonce_block_frontend_assets' );
+
+// Enqueue gallery dependencies when block is present
+function wp_nonce_block_enqueue_gallery_assets() {
+	if ( has_block( 'basic-block/image-gallery' ) ) {
+		wp_enqueue_script( 'isotope' );
+		wp_enqueue_script( 'imagesloaded' );
+		wp_enqueue_style( 'magnific-popup' );
+		wp_enqueue_script( 'magnific-popup' );
+		wp_enqueue_script( 'gallery-init' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'wp_nonce_block_enqueue_gallery_assets', 20 );
 // Register 'WP Nonce block' category
 function wp_nonce_block_category( $categories )
 {

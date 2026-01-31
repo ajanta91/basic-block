@@ -5,17 +5,29 @@
   "version": "1.0.0",
   "title": "Image Gallery [BB]",
   "category": "wp-nonce-blocks",
-  "description": "Display an image gallery with optional lightbox (Magnific Popup).",
-  "keywords": ["gallery", "images", "lightbox"],
+  "description": "Display a beautiful masonry image gallery with lightbox, hover effects, and overlay options.",
+  "keywords": ["gallery", "images", "lightbox", "masonry", "grid"],
   "attributes": {
     "images": {
       "type": "array",
       "default": [],
       "items": { "type": "object" }
     },
+    "layout": {
+      "type": "string",
+      "default": "grid"
+    },
     "columns": {
       "type": "number",
       "default": 3
+    },
+    "columnsTablet": {
+      "type": "number",
+      "default": 2
+    },
+    "columnsMobile": {
+      "type": "number",
+      "default": 1
     },
     "gutter": {
       "type": "number",
@@ -29,6 +41,10 @@
       "type": "string",
       "default": "large"
     },
+    "imageAspectRatio": {
+      "type": "string",
+      "default": "auto"
+    },
     "borderRadius": {
       "type": "number",
       "default": 0
@@ -36,6 +52,83 @@
     "hoverEffect": {
       "type": "string",
       "default": "zoom"
+    },
+    "showOverlay": {
+      "type": "boolean",
+      "default": true
+    },
+    "overlayColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0.5)"
+    },
+    "showTitle": {
+      "type": "boolean",
+      "default": false
+    },
+    "showCaption": {
+      "type": "boolean",
+      "default": false
+    },
+    "captionPosition": {
+      "type": "string",
+      "default": "overlay"
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "captionColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "titleFontSize": {
+      "type": "number",
+      "default": 16
+    },
+    "captionFontSize": {
+      "type": "number",
+      "default": 14
+    },
+    "iconColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "iconSize": {
+      "type": "number",
+      "default": 32
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "imageBorderWidth": {
+      "type": "number"
+    },
+    "imageBorderColor": {
+      "type": "string"
+    },
+    "imageBorderStyle": {
+      "type": "string",
+      "default": "none"
+    },
+    "boxShadowHorizontal": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowVertical": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowBlur": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowSpread": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowColor": {
+      "type": "string"
     }
   },
   "supports": {
@@ -48,4 +141,3 @@
   "style": "file:./style-index.css",
   "viewScript": "file:./view.js"
 }
-

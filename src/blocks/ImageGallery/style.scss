@@ -1,54 +1,450 @@
+// ImageGallery Block Styles
+
 .bb-image-gallery-wrapper {
-  --bb-columns: 3;
-  --bb-gutter: 15px;
-  --bb-radius: 0px;
-  width: 100%;
+	// CSS Custom Properties with defaults
+	--bb-columns: 3;
+	--bb-columns-tablet: 2;
+	--bb-columns-mobile: 1;
+	--bb-gutter: 15px;
+	--bb-radius: 0px;
+	--bb-overlay-color: rgba(0, 0, 0, 0.5);
+	--bb-title-color: #ffffff;
+	--bb-caption-color: #ffffff;
+	--bb-title-size: 16px;
+	--bb-caption-size: 14px;
+	--bb-icon-color: #ffffff;
+	--bb-icon-size: 32px;
+	--bb-border-width: 0;
+	--bb-border-color: transparent;
+	--bb-border-style: none;
+	--bb-box-shadow: none;
+	--bb-aspect-ratio: auto;
+	width: 100%;
 }
 
-.bb-image-gallery {
-  display: grid;
-  grid-template-columns: repeat(var(--bb-columns), 1fr);
-  gap: var(--bb-gutter);
+// ===========================
+// Grid Layout (CSS Grid)
+// ===========================
+.bb-image-gallery-wrapper.bb-layout-grid .bb-gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(var(--bb-columns), 1fr);
+	gap: var(--bb-gutter);
 }
 
-.bb-image-gallery-item {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--bb-radius);
+// Hide sizer elements in grid layout
+.bb-image-gallery-wrapper.bb-layout-grid .grid-sizer,
+.bb-image-gallery-wrapper.bb-layout-grid .gutter-sizer {
+	display: none;
 }
 
-.bb-image-gallery-item img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .4s ease;
+// ===========================
+// Masonry Layout (Isotope)
+// ===========================
+.bb-image-gallery-wrapper.bb-layout-masonry .bb-gallery-grid {
+	position: relative;
 }
 
-.bb-image-gallery-wrapper[data-hover='zoom'] .bb-image-gallery-item:hover img {
-  transform: scale(1.08);
+// Isotope sizing elements
+.grid-sizer,
+.bb-grid-item {
+	width: calc((100% - (var(--bb-gutter) * (var(--bb-columns) - 1))) / var(--bb-columns));
 }
 
-.bb-caption { font-size: 12px; text-align: center; padding: 6px 4px; }
-.bb-image-gallery {
-  --bb-gallery-gutter: 15px;
-  .bb-gallery-grid {
-    display: grid;
-    gap: var(--bb-gallery-gutter);
-  }
-  &.cols-1 .bb-gallery-grid { grid-template-columns: repeat(1, 1fr); }
-  &.cols-2 .bb-gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  &.cols-3 .bb-gallery-grid { grid-template-columns: repeat(3, 1fr); }
-  &.cols-4 .bb-gallery-grid { grid-template-columns: repeat(4, 1fr); }
-  &.cols-5 .bb-gallery-grid { grid-template-columns: repeat(5, 1fr); }
-  &.cols-6 .bb-gallery-grid { grid-template-columns: repeat(6, 1fr); }
+.gutter-sizer {
+	width: var(--bb-gutter);
+}
 
-  .bb-gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 4px;
-    img { width: 100%; height: auto; display: block; }
-    &:hover { opacity: .85; cursor: zoom-in; }
-  }
+// Gallery Item
+.bb-grid-item {
+	position: relative;
+	margin: 0 0 var(--bb-gutter) 0;
+	overflow: hidden;
+	border-radius: var(--bb-radius);
+	border: var(--bb-border-width) var(--bb-border-style) var(--bb-border-color);
+	box-shadow: var(--bb-box-shadow);
+	background: #f5f5f5;
+}
+
+// Grid layout doesn't need bottom margin (gap handles it)
+.bb-image-gallery-wrapper.bb-layout-grid .bb-grid-item {
+	margin-bottom: 0;
+}
+
+// Image Wrapper
+.bb-image-wrapper {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--bb-radius);
+}
+
+// Image - Default (natural height for masonry)
+.bb-grid-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+// Grid Layout - Aspect Ratio
+.bb-image-gallery-wrapper.bb-layout-grid .bb-image-wrapper {
+	position: relative;
+}
+
+// Apply aspect ratio only when set (not auto)
+.bb-image-gallery-wrapper.bb-layout-grid:not([style*="--bb-aspect-ratio: auto"]) .bb-image-wrapper {
+	aspect-ratio: var(--bb-aspect-ratio);
+}
+
+.bb-image-gallery-wrapper.bb-layout-grid:not([style*="--bb-aspect-ratio: auto"]) .bb-image-wrapper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+// Grid with auto aspect ratio - use natural dimensions
+.bb-image-gallery-wrapper.bb-layout-grid[style*="--bb-aspect-ratio: auto"] .bb-image-wrapper img {
+	position: relative;
+	height: auto;
+}
+
+// Gallery Link
+.bb-gallery-link {
+	display: block;
+	text-decoration: none;
+	cursor: zoom-in;
+}
+
+// Overlay
+.bb-gallery-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--bb-overlay-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	border-radius: var(--bb-radius);
+}
+
+.bb-image-gallery-wrapper[data-overlay="1"] .bb-grid-item:hover .bb-gallery-overlay {
+	opacity: 1;
+}
+
+// Icon
+.bb-gallery-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--bb-icon-size);
+	height: var(--bb-icon-size);
+	color: var(--bb-icon-color);
+	margin-bottom: 8px;
+	transform: translateY(10px);
+	transition: transform 0.3s ease;
+}
+
+.bb-grid-item:hover .bb-gallery-icon {
+	transform: translateY(0);
+}
+
+.bb-gallery-icon svg {
+	width: 100%;
+	height: 100%;
+}
+
+// Gallery Meta
+.bb-gallery-meta {
+	text-align: center;
+	padding: 0 12px;
+	transform: translateY(10px);
+	opacity: 0;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.bb-grid-item:hover .bb-gallery-meta {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+.bb-gallery-title {
+	margin: 0 0 4px 0;
+	font-size: var(--bb-title-size);
+	color: var(--bb-title-color);
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.bb-gallery-caption {
+	margin: 0;
+	font-size: var(--bb-caption-size);
+	color: var(--bb-caption-color);
+	line-height: 1.4;
+}
+
+// Caption Below
+.bb-caption-below {
+	padding: 10px 8px;
+	font-size: var(--bb-caption-size);
+	color: var(--bb-caption-color);
+	text-align: center;
+	margin: 0;
+	background: #f8f8f8;
+}
+
+// ===========================
+// Hover Effects
+// ===========================
+
+// Zoom In
+.bb-image-gallery-wrapper[data-hover="zoom"] .bb-grid-item:hover img {
+	transform: scale(1.1);
+}
+
+// Zoom Out
+.bb-image-gallery-wrapper[data-hover="zoom-out"] .bb-grid-item img {
+	transform: scale(1.1);
+}
+.bb-image-gallery-wrapper[data-hover="zoom-out"] .bb-grid-item:hover img {
+	transform: scale(1);
+}
+
+// Slide Up
+.bb-image-gallery-wrapper[data-hover="slide-up"] .bb-grid-item:hover img {
+	transform: translateY(-10px);
+}
+
+// Slide Down
+.bb-image-gallery-wrapper[data-hover="slide-down"] .bb-grid-item:hover img {
+	transform: translateY(10px);
+}
+
+// Slide Left
+.bb-image-gallery-wrapper[data-hover="slide-left"] .bb-grid-item:hover img {
+	transform: translateX(-10px);
+}
+
+// Slide Right
+.bb-image-gallery-wrapper[data-hover="slide-right"] .bb-grid-item:hover img {
+	transform: translateX(10px);
+}
+
+// Rotate
+.bb-image-gallery-wrapper[data-hover="rotate"] .bb-grid-item:hover img {
+	transform: rotate(5deg) scale(1.1);
+}
+
+// Grayscale
+.bb-image-gallery-wrapper[data-hover="grayscale"] .bb-grid-item img {
+	filter: grayscale(100%);
+}
+.bb-image-gallery-wrapper[data-hover="grayscale"] .bb-grid-item:hover img {
+	filter: grayscale(0%);
+}
+
+// Blur
+.bb-image-gallery-wrapper[data-hover="blur"] .bb-grid-item:hover img {
+	filter: blur(3px);
+}
+
+// Brightness
+.bb-image-gallery-wrapper[data-hover="brightness"] .bb-grid-item:hover img {
+	filter: brightness(1.2);
+}
+
+// Sepia
+.bb-image-gallery-wrapper[data-hover="sepia"] .bb-grid-item:hover img {
+	filter: sepia(100%);
+}
+
+// ===========================
+// Responsive Styles
+// ===========================
+
+// Tablet
+@media (max-width: 1024px) {
+	.bb-image-gallery-wrapper.bb-layout-grid .bb-gallery-grid {
+		grid-template-columns: repeat(var(--bb-columns-tablet), 1fr);
+	}
+
+	.grid-sizer,
+	.bb-grid-item {
+		width: calc((100% - (var(--bb-gutter) * (var(--bb-columns-tablet) - 1))) / var(--bb-columns-tablet));
+	}
+}
+
+// Mobile
+@media (max-width: 767px) {
+	.bb-image-gallery-wrapper.bb-layout-grid .bb-gallery-grid {
+		grid-template-columns: repeat(var(--bb-columns-mobile), 1fr);
+	}
+
+	.grid-sizer,
+	.bb-grid-item {
+		width: calc((100% - (var(--bb-gutter) * (var(--bb-columns-mobile) - 1))) / var(--bb-columns-mobile));
+	}
+}
+
+// ===========================
+// Lightbox Styles (Magnific Popup)
+// ===========================
+
+body.bb-lightbox-open {
+	overflow: hidden;
+}
+
+.bb-mfp-gallery {
+	&.mfp-bg {
+		background: rgba(0, 0, 0, 0.92);
+		opacity: 1;
+	}
+
+	.mfp-container {
+		padding: 20px;
+	}
+
+	.mfp-figure::after {
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+	}
+
+	.mfp-img {
+		padding: 0;
+		border-radius: 4px;
+	}
+
+	.mfp-bottom-bar {
+		margin-top: -30px;
+		padding: 10px 16px;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.mfp-title {
+		color: #fff;
+		font-size: 14px;
+		line-height: 1.5;
+		padding-right: 60px;
+
+		.mfp-title-text {
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		.mfp-caption-text {
+			opacity: 0.85;
+		}
+	}
+
+	.mfp-counter {
+		color: rgba(255, 255, 255, 0.75);
+		font-size: 13px;
+		position: absolute;
+		right: 40px;
+		transform: translate(0px, 35px);
+	}
+
+	.mfp-close {
+		color: #fff;
+		font-size: 36px;
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+		width: 44px;
+		height: 44px;
+		line-height: 44px;
+		right: 10px;
+		top: 10px;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	.mfp-arrow {
+		width: 60px;
+		height: 60px;
+		margin-top: -30px;
+		background: rgba(0, 0, 0, 0.5);
+		border-radius: 50%;
+		opacity: 0.7;
+		transition: opacity 0.2s ease, background 0.2s ease;
+
+		&:hover {
+			opacity: 1;
+			background: rgba(0, 0, 0, 0.8);
+		}
+
+		&::before,
+		&::after {
+			border: none;
+			content: '';
+			position: absolute;
+			top: 50%;
+			width: 12px;
+			height: 12px;
+			border-top: 2px solid #fff;
+			border-right: 2px solid #fff;
+			margin-top: -6px;
+		}
+
+		&-left {
+			left: 20px;
+
+			&::before,
+			&::after {
+				transform: rotate(-135deg);
+			}
+		}
+
+		&-right {
+			right: 20px;
+
+			&::before,
+			&::after {
+				transform: rotate(45deg);
+			}
+		}
+	}
+}
+
+// Fade animation
+.mfp-fade.mfp-bg {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+
+	&.mfp-ready {
+		opacity: 1;
+	}
+
+	&.mfp-removing {
+		opacity: 0;
+	}
+}
+
+.mfp-fade.mfp-wrap {
+	.mfp-content {
+		opacity: 0;
+		transform: scale(0.95);
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+
+	&.mfp-ready .mfp-content {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	&.mfp-removing .mfp-content {
+		opacity: 0;
+		transform: scale(0.95);
+	}
 }

@@ -1,5 +1,260 @@
-.bb-image-gallery-editor .bb-image-gallery-grid { display:grid; grid-template-columns:repeat(var(--bb-columns),1fr); gap:var(--bb-gutter);} 
-.bb-image-gallery-editor .bb-image-gallery-item { position:relative; overflow:hidden; border-radius:var(--bb-radius);} 
-.bb-image-gallery-editor img { width:100%; height:100%; object-fit:cover; display:block;} 
-.bb-image-gallery-placeholder { padding:20px; border:1px dashed #ccc; text-align:center;} 
-.bb-image-actions { position:absolute; top:6px; right:6px; display:flex; gap:4px; }
+// ImageGallery Block Editor Styles
+
+.bb-image-gallery-editor {
+	// CSS Custom Properties with defaults
+	--bb-columns: 3;
+	--bb-columns-tablet: 2;
+	--bb-columns-mobile: 1;
+	--bb-gutter: 15px;
+	--bb-radius: 0px;
+	--bb-overlay-color: rgba(0, 0, 0, 0.5);
+	--bb-title-color: #ffffff;
+	--bb-caption-color: #ffffff;
+	--bb-title-size: 16px;
+	--bb-caption-size: 14px;
+	--bb-icon-color: #ffffff;
+	--bb-icon-size: 32px;
+	--bb-border-width: 0;
+	--bb-border-color: transparent;
+	--bb-border-style: none;
+	--bb-box-shadow: none;
+	--bb-aspect-ratio: auto;
+	width: 100%;
+}
+
+// ===========================
+// Grid Layout (CSS Grid)
+// ===========================
+.bb-image-gallery-editor.bb-layout-grid .bb-gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(var(--bb-columns), 1fr);
+	gap: var(--bb-gutter);
+}
+
+// Hide sizer elements in grid layout
+.bb-image-gallery-editor.bb-layout-grid .bb-grid-sizer,
+.bb-image-gallery-editor.bb-layout-grid .bb-gutter-sizer {
+	display: none;
+}
+
+// ===========================
+// Masonry Layout (CSS Columns for Editor)
+// ===========================
+.bb-image-gallery-editor.bb-layout-masonry .bb-gallery-grid {
+	display: block;
+	column-count: var(--bb-columns);
+	column-gap: var(--bb-gutter);
+}
+
+// Hide sizer elements in editor masonry (CSS columns)
+.bb-image-gallery-editor.bb-layout-masonry .bb-grid-sizer,
+.bb-image-gallery-editor.bb-layout-masonry .bb-gutter-sizer {
+	display: none;
+}
+
+.bb-image-gallery-editor.bb-layout-masonry .bb-grid-item {
+	break-inside: avoid;
+	margin-bottom: var(--bb-gutter);
+}
+
+// Gallery Item
+.bb-image-gallery-editor .bb-grid-item {
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+	border-radius: var(--bb-radius);
+	border: var(--bb-border-width) var(--bb-border-style) var(--bb-border-color);
+	box-shadow: var(--bb-box-shadow);
+	background: #f5f5f5;
+}
+
+// Grid layout doesn't need bottom margin (gap handles it)
+.bb-image-gallery-editor.bb-layout-grid .bb-grid-item {
+	margin-bottom: 0;
+}
+
+// Image Wrapper
+.bb-image-gallery-editor .bb-image-wrapper {
+	position: relative;
+	overflow: hidden;
+	border-radius: var(--bb-radius);
+}
+
+// Image - Default (natural height for masonry)
+.bb-image-gallery-editor .bb-grid-item img {
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+// Grid Layout - Aspect Ratio
+.bb-image-gallery-editor.bb-layout-grid .bb-image-wrapper {
+	position: relative;
+}
+
+// Apply aspect ratio only when set (not auto)
+.bb-image-gallery-editor.bb-layout-grid:not([style*="--bb-aspect-ratio: auto"]) .bb-image-wrapper {
+	aspect-ratio: var(--bb-aspect-ratio);
+}
+
+.bb-image-gallery-editor.bb-layout-grid:not([style*="--bb-aspect-ratio: auto"]) .bb-image-wrapper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+// Grid with auto aspect ratio - use natural dimensions
+.bb-image-gallery-editor.bb-layout-grid[style*="--bb-aspect-ratio: auto"] .bb-image-wrapper img {
+	position: relative;
+	height: auto;
+}
+
+// Overlay
+.bb-image-gallery-editor .bb-gallery-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--bb-overlay-color);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	border-radius: var(--bb-radius);
+}
+
+.bb-image-gallery-editor[data-overlay="1"] .bb-grid-item:hover .bb-gallery-overlay {
+	opacity: 1;
+}
+
+// Icon
+.bb-image-gallery-editor .bb-gallery-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--bb-icon-size);
+	height: var(--bb-icon-size);
+	color: var(--bb-icon-color);
+	margin-bottom: 8px;
+}
+
+.bb-image-gallery-editor .bb-gallery-icon svg {
+	width: 100%;
+	height: 100%;
+}
+
+// Gallery Meta
+.bb-image-gallery-editor .bb-gallery-meta {
+	text-align: center;
+	padding: 0 12px;
+}
+
+.bb-image-gallery-editor .bb-gallery-title {
+	margin: 0 0 4px 0;
+	font-size: var(--bb-title-size);
+	color: var(--bb-title-color);
+	font-weight: 600;
+}
+
+.bb-image-gallery-editor .bb-gallery-caption {
+	margin: 0;
+	font-size: var(--bb-caption-size);
+	color: var(--bb-caption-color);
+}
+
+// Caption Below
+.bb-image-gallery-editor .bb-caption-below {
+	padding: 8px 4px;
+	font-size: var(--bb-caption-size);
+	color: var(--bb-caption-color);
+	text-align: center;
+	margin: 0;
+	background: #f8f8f8;
+}
+
+// ===========================
+// Hover Effects
+// ===========================
+.bb-image-gallery-editor[data-hover="zoom"] .bb-grid-item:hover img {
+	transform: scale(1.1);
+}
+
+.bb-image-gallery-editor[data-hover="zoom-out"] .bb-grid-item img {
+	transform: scale(1.1);
+}
+.bb-image-gallery-editor[data-hover="zoom-out"] .bb-grid-item:hover img {
+	transform: scale(1);
+}
+
+.bb-image-gallery-editor[data-hover="slide-up"] .bb-grid-item:hover img {
+	transform: translateY(-10px);
+}
+
+.bb-image-gallery-editor[data-hover="slide-down"] .bb-grid-item:hover img {
+	transform: translateY(10px);
+}
+
+.bb-image-gallery-editor[data-hover="slide-left"] .bb-grid-item:hover img {
+	transform: translateX(-10px);
+}
+
+.bb-image-gallery-editor[data-hover="slide-right"] .bb-grid-item:hover img {
+	transform: translateX(10px);
+}
+
+.bb-image-gallery-editor[data-hover="rotate"] .bb-grid-item:hover img {
+	transform: rotate(5deg) scale(1.1);
+}
+
+.bb-image-gallery-editor[data-hover="grayscale"] .bb-grid-item img {
+	filter: grayscale(100%);
+}
+.bb-image-gallery-editor[data-hover="grayscale"] .bb-grid-item:hover img {
+	filter: grayscale(0%);
+}
+
+.bb-image-gallery-editor[data-hover="blur"] .bb-grid-item:hover img {
+	filter: blur(3px);
+}
+
+.bb-image-gallery-editor[data-hover="brightness"] .bb-grid-item:hover img {
+	filter: brightness(1.2);
+}
+
+.bb-image-gallery-editor[data-hover="sepia"] .bb-grid-item:hover img {
+	filter: sepia(100%);
+}
+
+// Placeholder
+.bb-gallery-placeholder {
+	padding: 40px 20px;
+	border: 2px dashed #ccc;
+	text-align: center;
+	border-radius: 4px;
+	color: #666;
+	font-size: 14px;
+}
+
+// Image Actions (Remove Button)
+.bb-image-actions {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: flex;
+	gap: 4px;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	z-index: 10;
+}
+
+.bb-image-gallery-editor .bb-grid-item:hover .bb-image-actions {
+	opacity: 1;
+}
