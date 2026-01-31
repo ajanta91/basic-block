@@ -1,0 +1,271 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "basic-block/countdown",
+  "version": "1.0.0",
+  "title": "Countdown [BB]",
+  "category": "wp-nonce-blocks",
+  "description": "Display a countdown timer to a specific date and time.",
+  "example": {},
+  "attributes": {
+    "targetDate": {
+      "type": "string",
+      "default": ""
+    },
+    "targetTime": {
+      "type": "string",
+      "default": "00:00"
+    },
+    "layout": {
+      "type": "string",
+      "default": "horizontal"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "center"
+    },
+    "showDays": {
+      "type": "boolean",
+      "default": true
+    },
+    "showHours": {
+      "type": "boolean",
+      "default": true
+    },
+    "showMinutes": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSeconds": {
+      "type": "boolean",
+      "default": true
+    },
+    "labelDays": {
+      "type": "string",
+      "default": "Days"
+    },
+    "labelHours": {
+      "type": "string",
+      "default": "Hours"
+    },
+    "labelMinutes": {
+      "type": "string",
+      "default": "Minutes"
+    },
+    "labelSeconds": {
+      "type": "string",
+      "default": "Seconds"
+    },
+    "showLabels": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSeparator": {
+      "type": "boolean",
+      "default": true
+    },
+    "separator": {
+      "type": "string",
+      "default": ":"
+    },
+    "expiryAction": {
+      "type": "string",
+      "default": "message"
+    },
+    "expiryMessage": {
+      "type": "string",
+      "default": "Countdown expired!"
+    },
+    "expiryRedirectUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "numberColor": {
+      "type": "string",
+      "default": ""
+    },
+    "labelColor": {
+      "type": "string",
+      "default": ""
+    },
+    "separatorColor": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "numberFontFamily": {
+      "type": "string",
+      "default": ""
+    },
+    "numberFontSize": {
+      "type": "number",
+      "default": 48
+    },
+    "numberFontSizeUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "numberFontWeight": {
+      "type": "string",
+      "default": "700"
+    },
+    "numberTextTransform": {
+      "type": "string",
+      "default": ""
+    },
+    "numberFontStyle": {
+      "type": "string",
+      "default": ""
+    },
+    "numberTextDecoration": {
+      "type": "string",
+      "default": ""
+    },
+    "labelFontFamily": {
+      "type": "string",
+      "default": ""
+    },
+    "labelFontSize": {
+      "type": "number",
+      "default": 14
+    },
+    "labelFontSizeUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "labelFontWeight": {
+      "type": "string",
+      "default": "400"
+    },
+    "labelTextTransform": {
+      "type": "string",
+      "default": "uppercase"
+    },
+    "labelFontStyle": {
+      "type": "string",
+      "default": ""
+    },
+    "labelTextDecoration": {
+      "type": "string",
+      "default": ""
+    },
+    "separatorFontFamily": {
+      "type": "string",
+      "default": ""
+    },
+    "separatorFontSize": {
+      "type": "number",
+      "default": 48
+    },
+    "separatorFontSizeUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "separatorFontWeight": {
+      "type": "string",
+      "default": "700"
+    },
+    "separatorTextTransform": {
+      "type": "string",
+      "default": ""
+    },
+    "separatorFontStyle": {
+      "type": "string",
+      "default": ""
+    },
+    "separatorTextDecoration": {
+      "type": "string",
+      "default": ""
+    },
+    "itemGap": {
+      "type": "number",
+      "default": 20
+    },
+    "itemGapUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "itemPadding": {
+      "type": "object",
+      "default": {
+        "top": "20",
+        "right": "20",
+        "bottom": "20",
+        "left": "20",
+        "unit": "px"
+      }
+    },
+    "itemBorderWidth": {
+      "type": "number",
+      "default": 0
+    },
+    "itemBorderStyle": {
+      "type": "string",
+      "default": "solid"
+    },
+    "itemBorderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBorderRadius": {
+      "type": "number",
+      "default": 8
+    },
+    "itemBoxShadowHorizontal": {
+      "type": "number",
+      "default": 0
+    },
+    "itemBoxShadowVertical": {
+      "type": "number",
+      "default": 4
+    },
+    "itemBoxShadowBlur": {
+      "type": "number",
+      "default": 10
+    },
+    "itemBoxShadowSpread": {
+      "type": "number",
+      "default": 0
+    },
+    "itemBoxShadowColor": {
+      "type": "string",
+      "default": "rgba(0, 0, 0, 0.1)"
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "top": "",
+        "right": "",
+        "bottom": "",
+        "left": "",
+        "unit": "px"
+      }
+    },
+    "padding": {
+      "type": "object",
+      "default": {
+        "top": "",
+        "right": "",
+        "bottom": "",
+        "left": "",
+        "unit": "px"
+      }
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  },
+  "textdomain": "basic-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

@@ -3,5 +3,6 @@
  * Importing them triggers the registration.
  */
 import './blocks/Button';
+import './blocks/Countdown';
 import './blocks/Heading';
 import './blocks/ImageGallery';

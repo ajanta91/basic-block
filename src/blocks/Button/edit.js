@@ -43,7 +43,7 @@ import {
 	Popover,
 } from '@wordpress/components';
 import { link } from '@wordpress/icons';
-import SpacingControl from '../../components/SpacingControl';
+import SpacingControl from '../../components/SpacingControl/SpacingControl';
 
 import { TypographyGroupControls } from '../../components/Typography/TypographyControl';
 import { BorderGroupControls } from '../../components/BorderControl/BorderControl';

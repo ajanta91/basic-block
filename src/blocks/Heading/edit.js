@@ -20,7 +20,7 @@ import {
 /**
  * Internal dependencies
  */
-import SpacingControl from '../../components/SpacingControl';
+import SpacingControl from '../../components/SpacingControl/SpacingControl';
 import { TypographyGroupControls } from '../../components/Typography/TypographyControl';
 import { getHeadingStyles } from './utils';
 
