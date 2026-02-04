@@ -33,6 +33,7 @@ function wp_nonce_block_enqueue_assets()
 	);
 	wp_enqueue_script('flip');
 	wp_enqueue_style('flip');
+	wp_enqueue_script('main-script');
 }
 add_action('enqueue_block_editor_assets', 'wp_nonce_block_enqueue_assets');
 
@@ -83,6 +84,8 @@ function wp_nonce_block_register_assets()
 		'1.0.0',
 		true
 	);
+
+	wp_register_script('main-script', plugin_dir_url(__FILE__) . 'assets/js/main.js', ['jquery'], '1.0.0', true);
 }
 add_action('init', 'wp_nonce_block_register_assets');
 
@@ -113,7 +116,7 @@ function wp_nonce_block_enqueue_gallery_assets()
 	}
 
 	/* Main Scripts ====== */
-	wp_enqueue_script('main-script', plugin_dir_url(__FILE__) . 'assets/js/main.js', ['jquery'], '1.0.0', true);
+	wp_enqueue_script('main-script');
 }
 add_action('wp_enqueue_scripts', 'wp_nonce_block_enqueue_gallery_assets', 20);
 // Register 'WP Nonce block' category

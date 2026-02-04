@@ -50,6 +50,7 @@ const FlipClock = ({ days, hours, minutes, seconds, showDays, showHours, showMin
 		// Create the element manually
 		const element = document.createElement('div');
 		element.className = 'bb-tick'; // Safe class
+		element.dataset.didInit = "handleTickInit";
 
 		// Build the inner HTML based on enabled units
 		let innerHTML = `<div data-repeat="true" data-layout="horizontal center fit" data-transform="${presetString}">`;
