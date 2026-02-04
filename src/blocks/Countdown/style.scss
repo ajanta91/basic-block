@@ -154,3 +154,212 @@
 		margin-top: 4px;
 	}
 }
+
+// Flip Clock Style (Style 2)
+.bb-countdown-style-2 {
+	--bb-flip-bg: #333;
+	--bb-flip-bg-top: #3a3a3a;
+	--bb-flip-bg-bottom: #2a2a2a;
+	--bb-flip-color: #fff;
+	--bb-flip-size: 60px;
+	--bb-flip-height: 80px;
+	--bb-flip-gap: 4px;
+	--bb-flip-radius: 6px;
+
+	.bb-countdown-inner {
+		gap: 20px;
+	}
+
+	.bb-countdown-flip-group {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.bb-countdown-flip-item {
+		display: flex;
+		gap: var(--bb-flip-gap);
+	}
+
+	.bb-flip-digit {
+		position: relative;
+		width: var(--bb-flip-size);
+		height: var(--bb-flip-height);
+		font-size: calc(var(--bb-flip-size) * 0.9);
+		font-weight: 700;
+		line-height: 1;
+		perspective: 300px;
+		text-align: center;
+	}
+
+	// Static top half - shows current value
+	.bb-flip-digit-top {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 50%;
+		overflow: hidden;
+		background: var(--bb-flip-bg-top);
+		border-radius: var(--bb-flip-radius) var(--bb-flip-radius) 0 0;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+
+		.bb-flip-digit-top-inner {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 200%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bb-flip-color);
+		}
+	}
+
+	// Static bottom half - shows current value
+	.bb-flip-digit-bottom {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 50%;
+		overflow: hidden;
+		background: var(--bb-flip-bg-bottom);
+		border-radius: 0 0 var(--bb-flip-radius) var(--bb-flip-radius);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+		.bb-flip-digit-bottom-inner {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			height: 200%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bb-flip-color);
+		}
+	}
+
+	// Animated flip card
+	.bb-flip-card {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 50%;
+		transform-style: preserve-3d;
+		transform-origin: bottom center;
+		pointer-events: none;
+	}
+
+	// Front of flip card (shows old value, flips down)
+	.bb-flip-card-front {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 100%;
+		overflow: hidden;
+		background: var(--bb-flip-bg-top);
+		border-radius: var(--bb-flip-radius) var(--bb-flip-radius) 0 0;
+		backface-visibility: hidden;
+
+		.bb-flip-card-front-inner {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 200%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bb-flip-color);
+		}
+	}
+
+	// Back of flip card (shows new value, flips up)
+	.bb-flip-card-back {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		height: 100%;
+		overflow: hidden;
+		background: var(--bb-flip-bg-bottom);
+		border-radius: 0 0 var(--bb-flip-radius) var(--bb-flip-radius);
+		transform: rotateX(180deg);
+		backface-visibility: hidden;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+		.bb-flip-card-back-inner {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 200%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--bb-flip-color);
+			transform: rotateX(180deg);
+		}
+	}
+
+	// Flip animation
+	.bb-flip-digit.bb-flip-animating .bb-flip-card {
+		animation: bb-flip-card 0.6s ease-in-out forwards;
+	}
+
+	.bb-countdown-flip-label {
+		font-size: 12px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		color: var(--bb-countdown-label-color, #666);
+	}
+}
+
+@keyframes bb-flip-card {
+	0% {
+		transform: rotateX(0deg);
+	}
+	100% {
+		transform: rotateX(-180deg);
+	}
+}
+
+// Flip clock responsive styles
+@media (max-width: 768px) {
+	.bb-countdown-style-2 {
+		--bb-flip-size: 45px;
+		--bb-flip-height: 60px;
+
+		.bb-countdown-inner {
+			gap: 12px;
+		}
+	}
+}
+
+@media (max-width: 480px) {
+	.bb-countdown-style-2 {
+		--bb-flip-size: 32px;
+		--bb-flip-height: 44px;
+		--bb-flip-gap: 2px;
+		--bb-flip-radius: 4px;
+
+		.bb-countdown-inner {
+			gap: 8px;
+		}
+
+		.bb-countdown-flip-group {
+			gap: 4px;
+		}
+
+		.bb-countdown-flip-label {
+			font-size: 10px;
+		}
+	}
+}

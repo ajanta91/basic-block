@@ -8,6 +8,10 @@
   "description": "Display a countdown timer to a specific date and time.",
   "example": {},
   "attributes": {
+    "countdownStyle": {
+      "type": "string",
+      "default": "style-1"
+    },
     "targetDate": {
       "type": "string",
       "default": ""
