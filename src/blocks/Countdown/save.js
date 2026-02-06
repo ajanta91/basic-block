@@ -153,7 +153,7 @@ export default function save({ attributes }) {
 		const presetString = `preset(${presets.join(', ')}) -> delay`;
 
 		countdownItems.push(
-			<div className="bb-tick" key="flip-clock" data-did-init="handleTickInit">
+			<div className="bb-tick" key="flip-clock">
 				<div
 					data-repeat="true"
 					data-layout="horizontal center fit"

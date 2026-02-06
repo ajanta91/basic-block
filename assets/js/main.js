@@ -2,18 +2,23 @@
     /** Object base function */
     var WpNonceBlocks = {
         init: function() {
-            this.countdown();
+           // this.countdown();
         },
         countdown: function() {
-            $('.bb-tick').each(function(e) {
-                console.log('checking', e);
+            $('.bb-tick').each(function(index, element) {
+                let wrapper = element.closest('.bb-countdown-wrapper');
+                let targetDate = wrapper.dataset.targetDate;
+                let targetTime = wrapper.dataset.targetTime;
+                let expiryAction = wrapper.dataset.expiryAction;
+                let expiryMessage = wrapper.dataset.expiryMessage;
+                let expiryRedirectUrl = wrapper.dataset.expiryRedirect;
+                let countdownStyle = element.dataset.countdownStyle;
                 
-                function handleTickInit(tick) {
-                    var nextYear = new Date().getFullYear() + 1;
-                    Tick.count.down(nextYear + '-01-01').onupdate = function (value) {
-                        tick.value = value;
-                    };
-                }
+                Tick.count.down(targetDate + ' ' + targetTime).onupdate = function (value) {
+                    Tick.value = value;
+                    console.log('value', value);
+                };
+                
             });
         }
     };

@@ -167,7 +167,8 @@
 			const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
 			if (tickInstance) {
-				// Pass values as object keys matching standard presets (d, h, m, s)
+				// Format the value based on what Tick expects for the current preset
+				// The preset usually maps to these keys: d, h, m, s
 				tickInstance.value = {
 					d: days,
 					h: hours,

@@ -85,7 +85,7 @@ function wp_nonce_block_register_assets()
 		true
 	);
 
-	wp_register_script('main-script', plugin_dir_url(__FILE__) . 'assets/js/main.js', ['jquery'], '1.0.0', true);
+	wp_register_script('main-script', plugin_dir_url(__FILE__) . 'assets/js/main.js', ['jquery', 'flip'], '1.0.0', true);
 }
 add_action('init', 'wp_nonce_block_register_assets');
 
@@ -112,7 +112,7 @@ function wp_nonce_block_enqueue_gallery_assets()
 
 	if (has_block('basic-block/countdown')) {
 		wp_enqueue_script('flip');
-		wp_enqueue_style('flip');
+		//wp_enqueue_style('flip');
 	}
 
 	/* Main Scripts ====== */
