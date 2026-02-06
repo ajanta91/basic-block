@@ -5,13 +5,19 @@ import {
 	BlockControls,
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
-import {
-	PanelBody,
-	TextControl,
-	ToggleControl,
-	SelectControl,
-} from '@wordpress/components';
+import { PanelBody } from '@wordpress/components';
 import { useState, useEffect, useRef } from '@wordpress/element';
+
+import { Label } from '../../components/ui/label';
+import { Input } from '../../components/ui/input';
+import { Switch } from '../../components/ui/switch';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '../../components/ui/select';
 
 const FlipClock = ({ days, hours, minutes, seconds, showDays, showHours, showMinutes, showSeconds, labels }) => {
 	const containerRef = useRef(null);
@@ -284,32 +290,6 @@ export default function Edit({ attributes, setAttributes }) {
 		</div>
 	);
 
-	// const renderFlipDigit = ( digit ) => (
-	// 	<span className="bb-flip-digit">
-	// 		<span className="bb-flip-digit-top">
-	// 			<span className="bb-flip-digit-top-inner">{ digit }</span>
-	// 		</span>
-	// 		<span className="bb-flip-digit-bottom">
-	// 			<span className="bb-flip-digit-bottom-inner">{ digit }</span>
-	// 		</span>
-	// 	</span>
-	// );
-
-	// const renderFlipItem = ( value, label, key ) => {
-	// 	const paddedValue = String( value ).padStart( 2, '0' );
-	// 	return (
-	// 		<div className="bb-countdown-flip-group" key={ key }>
-	// 			<div className="bb-countdown-flip-item">
-	// 				{ renderFlipDigit( paddedValue[ 0 ] ) }
-	// 				{ renderFlipDigit( paddedValue[ 1 ] ) }
-	// 			</div>
-	// 			{ showLabels && <span className="bb-countdown-flip-label">{ label }</span> }
-	// 		</div>
-	// 	);
-	// };
-
-
-
 	const renderSeparator = (key) =>
 		showSeparator && (
 			<span className="bb-countdown-separator" key={`sep-${key}`}>
@@ -355,314 +335,384 @@ export default function Edit({ attributes, setAttributes }) {
 
 			{/* Settings Panel */}
 			<InspectorControls>
-				<PanelBody title={__('Countdown Settings', 'basic-block')} className="basic_block_panel" initialOpen={true}>
-					<SelectControl
-						label={__('Countdown Style', 'basic-block')}
-						value={countdownStyle}
-						options={[
-							{ label: __('Style 1 - Default', 'basic-block'), value: 'style-1' },
-							{ label: __('Style 2 - Flip Clock', 'basic-block'), value: 'style-2' },
-						]}
-						onChange={(value) => setAttributes({ countdownStyle: value })}
-					/>
+				<div className="bb-tw-root">
+					<PanelBody title={ __( 'Countdown Settings', 'basic-block' ) } className="basic_block_panel" initialOpen={ true }>
+						<div className="tw-space-y-4">
+							{/* Countdown Style */}
+							<div className="tw-space-y-2">
+								<Label>{ __( 'Countdown Style', 'basic-block' ) }</Label>
+								<Select
+									value={ countdownStyle }
+									onValueChange={ ( value ) => setAttributes( { countdownStyle: value } ) }
+								>
+									<SelectTrigger>
+										<SelectValue />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="style-1">{ __( 'Style 1 - Default', 'basic-block' ) }</SelectItem>
+										<SelectItem value="style-2">{ __( 'Style 2 - Flip Clock', 'basic-block' ) }</SelectItem>
+									</SelectContent>
+								</Select>
+							</div>
 
-					<div style={{ marginBottom: '16px' }}>
-						<label
-							style={{
-								display: 'block',
-								marginBottom: '8px',
-								fontWeight: '500',
-							}}
-						>
-							{__('Target Date', 'basic-block')}
-						</label>
-						<input
-							type="date"
-							value={targetDate}
-							onChange={(e) => setAttributes({ targetDate: e.target.value })}
-							style={{
-								width: '100%',
-								padding: '8px',
-								border: '1px solid #ccc',
-								borderRadius: '4px',
-							}}
-						/>
-					</div>
+							{/* Target Date */}
+							<div className="tw-space-y-2">
+								<Label>{ __( 'Target Date', 'basic-block' ) }</Label>
+								<Input
+									type="date"
+									value={ targetDate }
+									onChange={ ( e ) => setAttributes( { targetDate: e.target.value } ) }
+								/>
+							</div>
 
-					<TextControl
-						label={__('Target Time (HH:MM)', 'basic-block')}
-						value={targetTime}
-						onChange={(value) => setAttributes({ targetTime: value })}
-						type="time"
-					/>
+							{/* Target Time */}
+							<div className="tw-space-y-2">
+								<Label>{ __( 'Target Time (HH:MM)', 'basic-block' ) }</Label>
+								<Input
+									type="time"
+									value={ targetTime }
+									onChange={ ( e ) => setAttributes( { targetTime: e.target.value } ) }
+								/>
+							</div>
 
-					<SelectControl
-						label={__('Layout', 'basic-block')}
-						value={layout}
-						options={[
-							{ label: __('Horizontal', 'basic-block'), value: 'horizontal' },
-							{ label: __('Vertical', 'basic-block'), value: 'vertical' },
-						]}
-						onChange={(value) => setAttributes({ layout: value })}
-					/>
-				</PanelBody>
+							{/* Layout */}
+							<div className="tw-space-y-2">
+								<Label>{ __( 'Layout', 'basic-block' ) }</Label>
+								<Select
+									value={ layout }
+									onValueChange={ ( value ) => setAttributes( { layout: value } ) }
+								>
+									<SelectTrigger>
+										<SelectValue />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="horizontal">{ __( 'Horizontal', 'basic-block' ) }</SelectItem>
+										<SelectItem value="vertical">{ __( 'Vertical', 'basic-block' ) }</SelectItem>
+									</SelectContent>
+								</Select>
+							</div>
+						</div>
+					</PanelBody>
 
-				<PanelBody title={__('Display Units', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<ToggleControl
-						label={__('Show Days', 'basic-block')}
-						checked={showDays}
-						onChange={(value) => setAttributes({ showDays: value })}
-					/>
-					<ToggleControl
-						label={__('Show Hours', 'basic-block')}
-						checked={showHours}
-						onChange={(value) => setAttributes({ showHours: value })}
-					/>
-					<ToggleControl
-						label={__('Show Minutes', 'basic-block')}
-						checked={showMinutes}
-						onChange={(value) => setAttributes({ showMinutes: value })}
-					/>
-					<ToggleControl
-						label={__('Show Seconds', 'basic-block')}
-						checked={showSeconds}
-						onChange={(value) => setAttributes({ showSeconds: value })}
-					/>
-				</PanelBody>
+					<PanelBody title={ __( 'Display Units', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<Label htmlFor="bb-show-days">{ __( 'Show Days', 'basic-block' ) }</Label>
+								<Switch
+									id="bb-show-days"
+									checked={ showDays }
+									onCheckedChange={ ( value ) => setAttributes( { showDays: value } ) }
+								/>
+							</div>
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<Label htmlFor="bb-show-hours">{ __( 'Show Hours', 'basic-block' ) }</Label>
+								<Switch
+									id="bb-show-hours"
+									checked={ showHours }
+									onCheckedChange={ ( value ) => setAttributes( { showHours: value } ) }
+								/>
+							</div>
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<Label htmlFor="bb-show-minutes">{ __( 'Show Minutes', 'basic-block' ) }</Label>
+								<Switch
+									id="bb-show-minutes"
+									checked={ showMinutes }
+									onCheckedChange={ ( value ) => setAttributes( { showMinutes: value } ) }
+								/>
+							</div>
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<Label htmlFor="bb-show-seconds">{ __( 'Show Seconds', 'basic-block' ) }</Label>
+								<Switch
+									id="bb-show-seconds"
+									checked={ showSeconds }
+									onCheckedChange={ ( value ) => setAttributes( { showSeconds: value } ) }
+								/>
+							</div>
+						</div>
+					</PanelBody>
 
-				<PanelBody title={__('Labels', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<ToggleControl
-						label={__('Show Labels', 'basic-block')}
-						checked={showLabels}
-						onChange={(value) => setAttributes({ showLabels: value })}
-					/>
-					{showLabels && (
-						<>
-							<TextControl
-								label={__('Days Label', 'basic-block')}
-								value={labelDays}
-								onChange={(value) => setAttributes({ labelDays: value })}
-							/>
-							<TextControl
-								label={__('Hours Label', 'basic-block')}
-								value={labelHours}
-								onChange={(value) => setAttributes({ labelHours: value })}
-							/>
-							<TextControl
-								label={__('Minutes Label', 'basic-block')}
-								value={labelMinutes}
-								onChange={(value) => setAttributes({ labelMinutes: value })}
-							/>
-							<TextControl
-								label={__('Seconds Label', 'basic-block')}
-								value={labelSeconds}
-								onChange={(value) => setAttributes({ labelSeconds: value })}
-							/>
-						</>
-					)}
-				</PanelBody>
+					<PanelBody title={ __( 'Labels', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<Label htmlFor="bb-show-labels">{ __( 'Show Labels', 'basic-block' ) }</Label>
+								<Switch
+									id="bb-show-labels"
+									checked={ showLabels }
+									onCheckedChange={ ( value ) => setAttributes( { showLabels: value } ) }
+								/>
+							</div>
+							{ showLabels && (
+								<div className="tw-space-y-3 tw-pt-1">
+									<div className="tw-space-y-1.5">
+										<Label>{ __( 'Days Label', 'basic-block' ) }</Label>
+										<Input
+											value={ labelDays }
+											onChange={ ( e ) => setAttributes( { labelDays: e.target.value } ) }
+										/>
+									</div>
+									<div className="tw-space-y-1.5">
+										<Label>{ __( 'Hours Label', 'basic-block' ) }</Label>
+										<Input
+											value={ labelHours }
+											onChange={ ( e ) => setAttributes( { labelHours: e.target.value } ) }
+										/>
+									</div>
+									<div className="tw-space-y-1.5">
+										<Label>{ __( 'Minutes Label', 'basic-block' ) }</Label>
+										<Input
+											value={ labelMinutes }
+											onChange={ ( e ) => setAttributes( { labelMinutes: e.target.value } ) }
+										/>
+									</div>
+									<div className="tw-space-y-1.5">
+										<Label>{ __( 'Seconds Label', 'basic-block' ) }</Label>
+										<Input
+											value={ labelSeconds }
+											onChange={ ( e ) => setAttributes( { labelSeconds: e.target.value } ) }
+										/>
+									</div>
+								</div>
+							) }
+						</div>
+					</PanelBody>
 
-				<PanelBody title={__('Separator', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<ToggleControl
-						label={__('Show Separator', 'basic-block')}
-						checked={showSeparator}
-						onChange={(value) => setAttributes({ showSeparator: value })}
-					/>
-					{showSeparator && (
-						<TextControl
-							label={__('Separator Character', 'basic-block')}
-							value={separator}
-							onChange={(value) => setAttributes({ separator: value })}
-						/>
-					)}
-				</PanelBody>
+					<PanelBody title={ __( 'Separator', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<div className="tw-flex tw-items-center tw-justify-between">
+								<Label htmlFor="bb-show-separator">{ __( 'Show Separator', 'basic-block' ) }</Label>
+								<Switch
+									id="bb-show-separator"
+									checked={ showSeparator }
+									onCheckedChange={ ( value ) => setAttributes( { showSeparator: value } ) }
+								/>
+							</div>
+							{ showSeparator && (
+								<div className="tw-space-y-1.5">
+									<Label>{ __( 'Separator Character', 'basic-block' ) }</Label>
+									<Input
+										value={ separator }
+										onChange={ ( e ) => setAttributes( { separator: e.target.value } ) }
+									/>
+								</div>
+							) }
+						</div>
+					</PanelBody>
 
-				<PanelBody title={__('Expiry Action', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<SelectControl
-						label={__('When Countdown Expires', 'basic-block')}
-						value={expiryAction}
-						options={[
-							{ label: __('Show Message', 'basic-block'), value: 'message' },
-							{ label: __('Hide Countdown', 'basic-block'), value: 'hide' },
-							{ label: __('Redirect to URL', 'basic-block'), value: 'redirect' },
-						]}
-						onChange={(value) => setAttributes({ expiryAction: value })}
-					/>
-					{expiryAction === 'message' && (
-						<TextControl
-							label={__('Expiry Message', 'basic-block')}
-							value={expiryMessage}
-							onChange={(value) => setAttributes({ expiryMessage: value })}
-						/>
-					)}
-					{expiryAction === 'redirect' && (
-						<TextControl
-							label={__('Redirect URL', 'basic-block')}
-							value={expiryRedirectUrl}
-							onChange={(value) => setAttributes({ expiryRedirectUrl: value })}
-							type="url"
-						/>
-					)}
-				</PanelBody>
+					<PanelBody title={ __( 'Expiry Action', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<div className="tw-space-y-2">
+								<Label>{ __( 'When Countdown Expires', 'basic-block' ) }</Label>
+								<Select
+									value={ expiryAction }
+									onValueChange={ ( value ) => setAttributes( { expiryAction: value } ) }
+								>
+									<SelectTrigger>
+										<SelectValue />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="message">{ __( 'Show Message', 'basic-block' ) }</SelectItem>
+										<SelectItem value="hide">{ __( 'Hide Countdown', 'basic-block' ) }</SelectItem>
+										<SelectItem value="redirect">{ __( 'Redirect to URL', 'basic-block' ) }</SelectItem>
+									</SelectContent>
+								</Select>
+							</div>
+							{ expiryAction === 'message' && (
+								<div className="tw-space-y-1.5">
+									<Label>{ __( 'Expiry Message', 'basic-block' ) }</Label>
+									<Input
+										value={ expiryMessage }
+										onChange={ ( e ) => setAttributes( { expiryMessage: e.target.value } ) }
+									/>
+								</div>
+							) }
+							{ expiryAction === 'redirect' && (
+								<div className="tw-space-y-1.5">
+									<Label>{ __( 'Redirect URL', 'basic-block' ) }</Label>
+									<Input
+										type="url"
+										value={ expiryRedirectUrl }
+										onChange={ ( e ) => setAttributes( { expiryRedirectUrl: e.target.value } ) }
+									/>
+								</div>
+							) }
+						</div>
+					</PanelBody>
+				</div>
 			</InspectorControls>
 
 			{/* Styles Panel */}
 			<InspectorControls group="styles">
-				<PanelBody title={__('Colors', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<ColorControl
-						label={__('Number Color', 'basic-block')}
-						value={numberColor}
-						onChange={(value) => setAttributes({ numberColor: value })}
-					/>
-					<ColorControl
-						label={__('Label Color', 'basic-block')}
-						value={labelColor}
-						onChange={(value) => setAttributes({ labelColor: value })}
-					/>
-					<ColorControl
-						label={__('Separator Color', 'basic-block')}
-						value={separatorColor}
-						onChange={(value) => setAttributes({ separatorColor: value })}
-					/>
-					<ColorControl
-						label={__('Background Color', 'basic-block')}
-						value={backgroundColor}
-						onChange={(value) => setAttributes({ backgroundColor: value })}
-					/>
-					<ColorControl
-						label={__('Item Background Color', 'basic-block')}
-						value={itemBackgroundColor}
-						onChange={(value) => setAttributes({ itemBackgroundColor: value })}
-					/>
-				</PanelBody>
-
-				<TypographyGroupControls
-					attributes={attributes}
-					setAttributes={setAttributes}
-					prefix="number"
-					title={__('Number Typography', 'basic-block')}
-				/>
-
-				<TypographyGroupControls
-					attributes={attributes}
-					setAttributes={setAttributes}
-					prefix="label"
-					title={__('Label Typography', 'basic-block')}
-				/>
-
-				<TypographyGroupControls
-					attributes={attributes}
-					setAttributes={setAttributes}
-					prefix="separator"
-					title={__('Separator Typography', 'basic-block')}
-				/>
-
-				<PanelBody title={__('Item Styling', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<RangeContainer
-						label={__('Item Gap', 'basic-block')}
-						value={itemGap}
-						onChange={(value) => setAttributes({ itemGap: value })}
-						min={0}
-						max={100}
-						unit={itemGapUnit}
-						onUnitChange={(unit) => setAttributes({ itemGapUnit: unit })}
-						defaultValue={20}
-					/>
-					<SpacingControl
-						label={__('Item Padding', 'basic-block')}
-						values={itemPadding}
-						onChange={(value) => setAttributes({ itemPadding: value })}
-					/>
-					<RangeContainer
-						label={__('Border Width', 'basic-block')}
-						value={itemBorderWidth}
-						onChange={(value) => setAttributes({ itemBorderWidth: value })}
-						min={0}
-						max={20}
-						defaultValue={0}
-					/>
-					{itemBorderWidth > 0 && (
-						<>
-							<SelectControl
-								label={__('Border Style', 'basic-block')}
-								value={itemBorderStyle}
-								options={[
-									{ label: 'Solid', value: 'solid' },
-									{ label: 'Dashed', value: 'dashed' },
-									{ label: 'Dotted', value: 'dotted' },
-									{ label: 'Double', value: 'double' },
-								]}
-								onChange={(value) => setAttributes({ itemBorderStyle: value })}
+				<div className="bb-tw-root">
+					<PanelBody title={ __( 'Colors', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<ColorControl
+								label={ __( 'Number Color', 'basic-block' ) }
+								value={ numberColor }
+								onChange={ ( value ) => setAttributes( { numberColor: value } ) }
 							/>
 							<ColorControl
-								label={__('Border Color', 'basic-block')}
-								value={itemBorderColor}
-								onChange={(value) => setAttributes({ itemBorderColor: value })}
+								label={ __( 'Label Color', 'basic-block' ) }
+								value={ labelColor }
+								onChange={ ( value ) => setAttributes( { labelColor: value } ) }
 							/>
-						</>
-					)}
-					<RangeContainer
-						label={__('Border Radius', 'basic-block')}
-						value={itemBorderRadius}
-						onChange={(value) => setAttributes({ itemBorderRadius: value })}
-						min={0}
-						max={100}
-						defaultValue={8}
-					/>
-				</PanelBody>
+							<ColorControl
+								label={ __( 'Separator Color', 'basic-block' ) }
+								value={ separatorColor }
+								onChange={ ( value ) => setAttributes( { separatorColor: value } ) }
+							/>
+							<ColorControl
+								label={ __( 'Background Color', 'basic-block' ) }
+								value={ backgroundColor }
+								onChange={ ( value ) => setAttributes( { backgroundColor: value } ) }
+							/>
+							<ColorControl
+								label={ __( 'Item Background Color', 'basic-block' ) }
+								value={ itemBackgroundColor }
+								onChange={ ( value ) => setAttributes( { itemBackgroundColor: value } ) }
+							/>
+						</div>
+					</PanelBody>
 
-				<PanelBody title={__('Item Box Shadow', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<RangeContainer
-						label={__('Horizontal Offset', 'basic-block')}
-						value={itemBoxShadowHorizontal}
-						onChange={(value) => setAttributes({ itemBoxShadowHorizontal: value })}
-						min={-50}
-						max={50}
-						defaultValue={0}
+					<TypographyGroupControls
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+						prefix="number"
+						title={ __( 'Number Typography', 'basic-block' ) }
 					/>
-					<RangeContainer
-						label={__('Vertical Offset', 'basic-block')}
-						value={itemBoxShadowVertical}
-						onChange={(value) => setAttributes({ itemBoxShadowVertical: value })}
-						min={-50}
-						max={50}
-						defaultValue={4}
-					/>
-					<RangeContainer
-						label={__('Blur Radius', 'basic-block')}
-						value={itemBoxShadowBlur}
-						onChange={(value) => setAttributes({ itemBoxShadowBlur: value })}
-						min={0}
-						max={100}
-						defaultValue={10}
-					/>
-					<RangeContainer
-						label={__('Spread Radius', 'basic-block')}
-						value={itemBoxShadowSpread}
-						onChange={(value) => setAttributes({ itemBoxShadowSpread: value })}
-						min={-50}
-						max={50}
-						defaultValue={0}
-					/>
-					<ColorControl
-						label={__('Shadow Color', 'basic-block')}
-						value={itemBoxShadowColor}
-						onChange={(value) => setAttributes({ itemBoxShadowColor: value })}
-					/>
-				</PanelBody>
 
-				<PanelBody title={__('Spacing', 'basic-block')} className="basic_block_panel" initialOpen={false}>
-					<SpacingControl
-						label={__('Margin', 'basic-block')}
-						values={margin}
-						onChange={(value) => setAttributes({ margin: value })}
+					<TypographyGroupControls
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+						prefix="label"
+						title={ __( 'Label Typography', 'basic-block' ) }
 					/>
-					<SpacingControl
-						label={__('Padding', 'basic-block')}
-						values={padding}
-						onChange={(value) => setAttributes({ padding: value })}
+
+					<TypographyGroupControls
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+						prefix="separator"
+						title={ __( 'Separator Typography', 'basic-block' ) }
 					/>
-				</PanelBody>
+
+					<PanelBody title={ __( 'Item Styling', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<RangeContainer
+								label={ __( 'Item Gap', 'basic-block' ) }
+								value={ itemGap }
+								onChange={ ( value ) => setAttributes( { itemGap: value } ) }
+								min={ 0 }
+								max={ 100 }
+								unit={ itemGapUnit }
+								onUnitChange={ ( unit ) => setAttributes( { itemGapUnit: unit } ) }
+								defaultValue={ 20 }
+							/>
+							<SpacingControl
+								label={ __( 'Item Padding', 'basic-block' ) }
+								values={ itemPadding }
+								onChange={ ( value ) => setAttributes( { itemPadding: value } ) }
+							/>
+							<RangeContainer
+								label={ __( 'Border Width', 'basic-block' ) }
+								value={ itemBorderWidth }
+								onChange={ ( value ) => setAttributes( { itemBorderWidth: value } ) }
+								min={ 0 }
+								max={ 20 }
+								defaultValue={ 0 }
+							/>
+							{ itemBorderWidth > 0 && (
+								<>
+									<div className="tw-space-y-2">
+										<Label>{ __( 'Border Style', 'basic-block' ) }</Label>
+										<Select
+											value={ itemBorderStyle }
+											onValueChange={ ( value ) => setAttributes( { itemBorderStyle: value } ) }
+										>
+											<SelectTrigger>
+												<SelectValue />
+											</SelectTrigger>
+											<SelectContent>
+												<SelectItem value="solid">Solid</SelectItem>
+												<SelectItem value="dashed">Dashed</SelectItem>
+												<SelectItem value="dotted">Dotted</SelectItem>
+												<SelectItem value="double">Double</SelectItem>
+											</SelectContent>
+										</Select>
+									</div>
+									<ColorControl
+										label={ __( 'Border Color', 'basic-block' ) }
+										value={ itemBorderColor }
+										onChange={ ( value ) => setAttributes( { itemBorderColor: value } ) }
+									/>
+								</>
+							) }
+							<RangeContainer
+								label={ __( 'Border Radius', 'basic-block' ) }
+								value={ itemBorderRadius }
+								onChange={ ( value ) => setAttributes( { itemBorderRadius: value } ) }
+								min={ 0 }
+								max={ 100 }
+								defaultValue={ 8 }
+							/>
+						</div>
+					</PanelBody>
+
+					<PanelBody title={ __( 'Item Box Shadow', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<RangeContainer
+								label={ __( 'Horizontal Offset', 'basic-block' ) }
+								value={ itemBoxShadowHorizontal }
+								onChange={ ( value ) => setAttributes( { itemBoxShadowHorizontal: value } ) }
+								min={ -50 }
+								max={ 50 }
+								defaultValue={ 0 }
+							/>
+							<RangeContainer
+								label={ __( 'Vertical Offset', 'basic-block' ) }
+								value={ itemBoxShadowVertical }
+								onChange={ ( value ) => setAttributes( { itemBoxShadowVertical: value } ) }
+								min={ -50 }
+								max={ 50 }
+								defaultValue={ 4 }
+							/>
+							<RangeContainer
+								label={ __( 'Blur Radius', 'basic-block' ) }
+								value={ itemBoxShadowBlur }
+								onChange={ ( value ) => setAttributes( { itemBoxShadowBlur: value } ) }
+								min={ 0 }
+								max={ 100 }
+								defaultValue={ 10 }
+							/>
+							<RangeContainer
+								label={ __( 'Spread Radius', 'basic-block' ) }
+								value={ itemBoxShadowSpread }
+								onChange={ ( value ) => setAttributes( { itemBoxShadowSpread: value } ) }
+								min={ -50 }
+								max={ 50 }
+								defaultValue={ 0 }
+							/>
+							<ColorControl
+								label={ __( 'Shadow Color', 'basic-block' ) }
+								value={ itemBoxShadowColor }
+								onChange={ ( value ) => setAttributes( { itemBoxShadowColor: value } ) }
+							/>
+						</div>
+					</PanelBody>
+
+					<PanelBody title={ __( 'Spacing', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+						<div className="tw-space-y-3">
+							<SpacingControl
+								label={ __( 'Margin', 'basic-block' ) }
+								values={ margin }
+								onChange={ ( value ) => setAttributes( { margin: value } ) }
+							/>
+							<SpacingControl
+								label={ __( 'Padding', 'basic-block' ) }
+								values={ padding }
+								onChange={ ( value ) => setAttributes( { padding: value } ) }
+							/>
+						</div>
+					</PanelBody>
+				</div>
 			</InspectorControls>
 
 			<div {...blockProps}>

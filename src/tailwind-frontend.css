@@ -1,0 +1,29 @@
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * shadcn/ui CSS Variables for frontend rendering
+ * Scoped to .bb-tw-root wrapper
+ */
+.bb-tw-root {
+	--bb-background: 0 0% 100%;
+	--bb-foreground: 222.2 84% 4.9%;
+	--bb-card: 0 0% 100%;
+	--bb-card-foreground: 222.2 84% 4.9%;
+	--bb-popover: 0 0% 100%;
+	--bb-popover-foreground: 222.2 84% 4.9%;
+	--bb-primary: 222.2 47.4% 11.2%;
+	--bb-primary-foreground: 210 40% 98%;
+	--bb-secondary: 210 40% 96.1%;
+	--bb-secondary-foreground: 222.2 47.4% 11.2%;
+	--bb-muted: 210 40% 96.1%;
+	--bb-muted-foreground: 215.4 16.3% 46.9%;
+	--bb-accent: 210 40% 96.1%;
+	--bb-accent-foreground: 222.2 47.4% 11.2%;
+	--bb-destructive: 0 84.2% 60.2%;
+	--bb-destructive-foreground: 210 40% 98%;
+	--bb-border: 214.3 31.8% 91.4%;
+	--bb-input: 214.3 31.8% 91.4%;
+	--bb-ring: 222.2 84% 4.9%;
+	--bb-radius: 0.5rem;
+}

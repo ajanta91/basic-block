@@ -34,6 +34,17 @@ function wp_nonce_block_enqueue_assets()
 	wp_enqueue_script('flip');
 	wp_enqueue_style('flip');
 	wp_enqueue_script('main-script');
+
+	// Enqueue Tailwind CSS for shadcn/ui components in the editor
+	$tailwind_css = __DIR__ . '/build/tailwind-frontend.css';
+	if (file_exists($tailwind_css)) {
+		wp_enqueue_style(
+			'basic-block-tailwind',
+			plugin_dir_url(__FILE__) . 'build/tailwind-frontend.css',
+			[],
+			filemtime($tailwind_css)
+		);
+	}
 }
 add_action('enqueue_block_editor_assets', 'wp_nonce_block_enqueue_assets');
 
@@ -181,3 +192,45 @@ function basic_block_init()
 
 }
 add_action('init', 'basic_block_init');
+
+// Add 'flip' as a dependency of the countdown view script so Tick loads first
+function bb_add_countdown_view_deps()
+{
+	$handle = 'basic-block-countdown-view-script';
+	$scripts = wp_scripts();
+	if (isset($scripts->registered[$handle]) && !in_array('flip', $scripts->registered[$handle]->deps, true)) {
+		$scripts->registered[$handle]->deps[] = 'flip';
+	}
+}
+add_action('wp_enqueue_scripts', 'bb_add_countdown_view_deps', 1);
+
+/**
+ * Enqueue Tailwind CSS on the frontend conditionally.
+ * Only loads when a basic-block that uses Tailwind is present on the page.
+ */
+function bb_enqueue_tailwind_frontend()
+{
+	if (is_admin()) {
+		return;
+	}
+
+	$tailwind_css = __DIR__ . '/build/tailwind-frontend.css';
+
+	if (
+		file_exists($tailwind_css) &&
+		(
+			has_block('basic-block/button') ||
+			has_block('basic-block/countdown') ||
+			has_block('basic-block/heading') ||
+			has_block('basic-block/image-gallery')
+		)
+	) {
+		wp_enqueue_style(
+			'basic-block-tailwind',
+			plugin_dir_url(__FILE__) . 'build/tailwind-frontend.css',
+			[],
+			filemtime($tailwind_css)
+		);
+	}
+}
+add_action('wp_enqueue_scripts', 'bb_enqueue_tailwind_frontend');
