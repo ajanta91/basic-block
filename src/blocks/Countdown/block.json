@@ -261,6 +261,38 @@
         "left": "",
         "unit": "px"
       }
+    },
+    "flipUpperBackground": {
+      "type": "string",
+      "default": ""
+    },
+    "flipUpperBorderWidth": {
+      "type": "number",
+      "default": 0
+    },
+    "flipUpperBorderStyle": {
+      "type": "string",
+      "default": "solid"
+    },
+    "flipUpperBorderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "flipLowerBackground": {
+      "type": "string",
+      "default": ""
+    },
+    "flipLowerBorderWidth": {
+      "type": "number",
+      "default": 0
+    },
+    "flipLowerBorderStyle": {
+      "type": "string",
+      "default": "solid"
+    },
+    "flipLowerBorderColor": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {

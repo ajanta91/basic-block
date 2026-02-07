@@ -61,6 +61,14 @@ export default function save({ attributes }) {
 		itemBoxShadowColor,
 		margin,
 		padding,
+		flipUpperBackground,
+		flipUpperBorderWidth,
+		flipUpperBorderStyle,
+		flipUpperBorderColor,
+		flipLowerBackground,
+		flipLowerBorderWidth,
+		flipLowerBorderStyle,
+		flipLowerBorderColor,
 	} = attributes;
 
 	if (!targetDate) {
@@ -101,6 +109,14 @@ export default function save({ attributes }) {
 			: undefined,
 		'--bb-countdown-item-radius': `${itemBorderRadius}px`,
 		'--bb-countdown-item-shadow': `${itemBoxShadowHorizontal}px ${itemBoxShadowVertical}px ${itemBoxShadowBlur}px ${itemBoxShadowSpread}px ${itemBoxShadowColor}`,
+		'--bb-flip-upper-bg': flipUpperBackground || undefined,
+		'--bb-flip-upper-border': flipUpperBorderWidth
+			? `${flipUpperBorderWidth}px ${flipUpperBorderStyle} ${flipUpperBorderColor || '#ccc'}`
+			: undefined,
+		'--bb-flip-lower-bg': flipLowerBackground || undefined,
+		'--bb-flip-lower-border': flipLowerBorderWidth
+			? `${flipLowerBorderWidth}px ${flipLowerBorderStyle} ${flipLowerBorderColor || '#ccc'}`
+			: undefined,
 		marginTop: margin?.top ? `${margin.top}${margin.unit}` : undefined,
 		marginRight: margin?.right ? `${margin.right}${margin.unit}` : undefined,
 		marginBottom: margin?.bottom ? `${margin.bottom}${margin.unit}` : undefined,

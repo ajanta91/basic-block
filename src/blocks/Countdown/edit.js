@@ -18,6 +18,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '../../components/ui/select';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/tabs';
 
 const FlipClock = ({ days, hours, minutes, seconds, showDays, showHours, showMinutes, showSeconds, labels }) => {
 	const containerRef = useRef(null);
@@ -58,7 +59,7 @@ const FlipClock = ({ days, hours, minutes, seconds, showDays, showHours, showMin
 		element.className = 'bb-tick'; // Safe class
 
 		// Build the inner HTML based on enabled units
-		let innerHTML = `<div data-repeat="true" data-layout="horizontal center fit" data-transform="${presetString}">`;
+		let innerHTML = `<div class="bb-countdown-flip-clock" data-repeat="true" data-layout="horizontal center fit" data-transform="${presetString}">`;
 
 		if (showDays) {
 			innerHTML += `
@@ -194,6 +195,14 @@ export default function Edit({ attributes, setAttributes }) {
 		itemBoxShadowColor,
 		margin,
 		padding,
+		flipUpperBackground,
+		flipUpperBorderWidth,
+		flipUpperBorderStyle,
+		flipUpperBorderColor,
+		flipLowerBackground,
+		flipLowerBorderWidth,
+		flipLowerBorderStyle,
+		flipLowerBorderColor,
 	} = attributes;
 
 	const [countdown, setCountdown] = useState({
@@ -268,6 +277,14 @@ export default function Edit({ attributes, setAttributes }) {
 			: undefined,
 		'--bb-countdown-item-radius': `${itemBorderRadius}px`,
 		'--bb-countdown-item-shadow': `${itemBoxShadowHorizontal}px ${itemBoxShadowVertical}px ${itemBoxShadowBlur}px ${itemBoxShadowSpread}px ${itemBoxShadowColor}`,
+		'--bb-flip-upper-bg': flipUpperBackground || undefined,
+		'--bb-flip-upper-border': flipUpperBorderWidth
+			? `${flipUpperBorderWidth}px ${flipUpperBorderStyle} ${flipUpperBorderColor || '#ccc'}`
+			: undefined,
+		'--bb-flip-lower-bg': flipLowerBackground || undefined,
+		'--bb-flip-lower-border': flipLowerBorderWidth
+			? `${flipLowerBorderWidth}px ${flipLowerBorderStyle} ${flipLowerBorderColor || '#ccc'}`
+			: undefined,
 		marginTop: margin?.top ? `${margin.top}${margin.unit}` : undefined,
 		marginRight: margin?.right ? `${margin.right}${margin.unit}` : undefined,
 		marginBottom: margin?.bottom ? `${margin.bottom}${margin.unit}` : undefined,
@@ -593,6 +610,101 @@ export default function Edit({ attributes, setAttributes }) {
 						prefix="separator"
 						title={ __( 'Separator Typography', 'basic-block' ) }
 					/>
+
+					{ countdownStyle === 'style-2' && (
+						<PanelBody title={ __( 'Flip Style', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
+							<Tabs defaultValue="upper" className="tw-w-full">
+								<TabsList className="tw-w-full tw-grid tw-grid-cols-2">
+									<TabsTrigger value="upper">{ __( 'Upper', 'basic-block' ) }</TabsTrigger>
+									<TabsTrigger value="lower">{ __( 'Lower', 'basic-block' ) }</TabsTrigger>
+								</TabsList>
+								<TabsContent value="upper">
+									<div className="tw-space-y-3 tw-pt-2">
+										<ColorControl
+											label={ __( 'Background', 'basic-block' ) }
+											value={ flipUpperBackground }
+											onChange={ ( value ) => setAttributes( { flipUpperBackground: value } ) }
+										/>
+										<RangeContainer
+											label={ __( 'Border Width', 'basic-block' ) }
+											value={ flipUpperBorderWidth }
+											onChange={ ( value ) => setAttributes( { flipUpperBorderWidth: value } ) }
+											min={ 0 }
+											max={ 10 }
+											defaultValue={ 0 }
+										/>
+										{ flipUpperBorderWidth > 0 && (
+											<>
+												<div className="tw-space-y-2">
+													<Label>{ __( 'Border Style', 'basic-block' ) }</Label>
+													<Select
+														value={ flipUpperBorderStyle }
+														onValueChange={ ( value ) => setAttributes( { flipUpperBorderStyle: value } ) }
+													>
+														<SelectTrigger>
+															<SelectValue />
+														</SelectTrigger>
+														<SelectContent>
+															<SelectItem value="solid">Solid</SelectItem>
+															<SelectItem value="dashed">Dashed</SelectItem>
+															<SelectItem value="dotted">Dotted</SelectItem>
+														</SelectContent>
+													</Select>
+												</div>
+												<ColorControl
+													label={ __( 'Border Color', 'basic-block' ) }
+													value={ flipUpperBorderColor }
+													onChange={ ( value ) => setAttributes( { flipUpperBorderColor: value } ) }
+												/>
+											</>
+										) }
+									</div>
+								</TabsContent>
+								<TabsContent value="lower">
+									<div className="tw-space-y-3 tw-pt-2">
+										<ColorControl
+											label={ __( 'Background', 'basic-block' ) }
+											value={ flipLowerBackground }
+											onChange={ ( value ) => setAttributes( { flipLowerBackground: value } ) }
+										/>
+										<RangeContainer
+											label={ __( 'Border Width', 'basic-block' ) }
+											value={ flipLowerBorderWidth }
+											onChange={ ( value ) => setAttributes( { flipLowerBorderWidth: value } ) }
+											min={ 0 }
+											max={ 10 }
+											defaultValue={ 0 }
+										/>
+										{ flipLowerBorderWidth > 0 && (
+											<>
+												<div className="tw-space-y-2">
+													<Label>{ __( 'Border Style', 'basic-block' ) }</Label>
+													<Select
+														value={ flipLowerBorderStyle }
+														onValueChange={ ( value ) => setAttributes( { flipLowerBorderStyle: value } ) }
+													>
+														<SelectTrigger>
+															<SelectValue />
+														</SelectTrigger>
+														<SelectContent>
+															<SelectItem value="solid">Solid</SelectItem>
+															<SelectItem value="dashed">Dashed</SelectItem>
+															<SelectItem value="dotted">Dotted</SelectItem>
+														</SelectContent>
+													</Select>
+												</div>
+												<ColorControl
+													label={ __( 'Border Color', 'basic-block' ) }
+													value={ flipLowerBorderColor }
+													onChange={ ( value ) => setAttributes( { flipLowerBorderColor: value } ) }
+												/>
+											</>
+										) }
+									</div>
+								</TabsContent>
+							</Tabs>
+						</PanelBody>
+					) }
 
 					<PanelBody title={ __( 'Item Styling', 'basic-block' ) } className="basic_block_panel" initialOpen={ false }>
 						<div className="tw-space-y-3">
