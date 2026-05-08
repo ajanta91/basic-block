@@ -62,5 +62,5 @@ input[type=number]::-webkit-inner-spin-button {
     margin-bottom: 16px !important;
 }
 .basic_block_panel .components-panel__body-toggle.components-button{
-    background: linear-gradient(20deg, #eaf9f3, #cad7f5ab);
+    background: linear-gradient(20deg, #fcfff8a3, #323cba6b);
 }

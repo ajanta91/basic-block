@@ -120,7 +120,7 @@ export default function Edit({ attributes, setAttributes }) {
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'basic-block')}>
+				<PanelBody title={__('Settings', 'basic-block')} className='basic_block_panel'>
 
 					<TextControl
 						label={__('Button Label', 'basic-block')}
@@ -160,7 +160,7 @@ export default function Edit({ attributes, setAttributes }) {
 
 				</PanelBody>
 
-				<PanelBody title={__('Advanced Settings', 'basic-block')}>
+				<PanelBody title={__('Advanced Settings', 'basic-block')} className='basic_block_panel'>
 					<TextControl
 						label={__('Custom CSS Class', 'basic-block')}
 						value={attributes.customClass}
